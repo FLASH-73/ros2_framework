@@ -1,0 +1,7 @@
+<library path="arm_hardware_plugin">
+  <class
+    name="simple_arm/ArmHardware"
+    type="simple_arm::ArmHardware"
+    base_class_type="hardware_interface::SystemInterface"
+  />
+</library>

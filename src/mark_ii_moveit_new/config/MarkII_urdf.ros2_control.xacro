@@ -1,0 +1,97 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:arg name="use_real_hardware" default="true" />
+
+    <xacro:unless value="$(arg use_real_hardware)">
+        <xacro:property name="initial_positions" value="${dict(
+            'base_link_Revolute-1': 0.0,
+            'link1_Revolute-3': 0.0,
+            'link2_Revolute-4': 0.0,
+            'link3_Revolute-5': 0.0,
+            'link4_Revolute-6': 0.0,
+            'link5_Revolute-7': 0.0,
+            'link6_Slider-8': 0.0
+        )}" />
+    </xacro:unless>
+
+    <ros2_control name="MarkIIHardware" type="system">
+        <xacro:if value="$(arg use_real_hardware)">
+            <hardware>
+                <plugin>simple_arm/ArmHardware</plugin>
+                <param name="serial_port">/dev/ttyUSB0</param>
+                <param name="baudrate">1000000</param>
+            </hardware>
+        </xacro:if>
+        <xacro:unless value="$(arg use_real_hardware)">
+            <hardware>
+                <plugin>mock_components/GenericSystem</plugin>
+            </hardware>
+        </xacro:unless>
+
+        <!-- Joint Interfaces -->
+        <joint name="base_link_Revolute-1">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['base_link_Revolute-1']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link1_Revolute-3">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link1_Revolute-3']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link2_Revolute-4">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link2_Revolute-4']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link3_Revolute-5">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link3_Revolute-5']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link4_Revolute-6">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link4_Revolute-6']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link5_Revolute-7">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link5_Revolute-7']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="link6_Slider-8">
+            <command_interface name="position" />
+            <state_interface name="position">
+                <xacro:unless value="$(arg use_real_hardware)">
+                    <param name="initial_value">${initial_positions['link6_Slider-8']}</param>
+                </xacro:unless>
+            </state_interface>
+            <state_interface name="velocity" />
+        </joint>
+    </ros2_control>
+
+</robot>

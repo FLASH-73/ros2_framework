@@ -1,0 +1,45 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    # Controller definitions
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    # Note: The gripper controller in MoveIt2 is often an "effort" or "position" based one.
+    # GripperActionController is for simple open/close commands. If you need more fine-grained control,
+    # you might switch this to a ForwardPositionController later.
+    gripper_controller:
+      type: position_controllers/GripperActionController
+
+
+# Parameters for each controller
+joint_state_broadcaster:
+  ros__parameters:
+    # The type is already defined above
+    {}
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - base_link_Revolute-1
+      - link1_Revolute-3
+      - link2_Revolute-4
+      - link3_Revolute-5
+      - link4_Revolute-6
+      - link5_Revolute-7
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity # Even if not used, it's good practice to export
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints: false
+
+gripper_controller:
+  ros__parameters:
+    joint: link6_Slider-8

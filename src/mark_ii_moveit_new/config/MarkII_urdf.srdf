@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="MarkII_urdf">
+    <group name="arm">
+        <chain base_link="base_link" tip_link="link6" />  <!-- Now includes all 6 revolute joints -->
+    </group>
+    <group name="gripper">
+         <!-- Chain from gripper base to EE tip -->
+        <joint name="link6_Slider-8" />  <!-- Prismatic for open/close -->
+        <link name="link7" />
+        <link name="link8" />  <!-- Your rack/clamp links; add mimics if needed -->
+    </group>
+    <group_state name="home" group="arm">
+        <joint name="base_link_Revolute-1" value="0"/>
+        <joint name="link1_Revolute-3" value="0"/>
+        <joint name="link2_Revolute-4" value="0"/>
+        <joint name="link3_Revolute-5" value="0"/>
+        <joint name="link4_Revolute-6" value="0"/>
+        <joint name="link5_Revolute-7" value="0"/>  <!-- Now included in arm -->
+    </group_state>
+    <group_state name="open" group="gripper">
+        <joint name="link6_Slider-8" value="0.0241"/>
+    </group_state>
+    <group_state name="closed" group="gripper">
+        <joint name="link6_Slider-8" value="0"/>
+    </group_state>
+    <end_effector name="gripper" parent_link="link6" group="gripper" parent_group="arm" />
+    <!-- Disable collisions remain the same -->
+    <disable_collisions link1="base_link" link2="link1" reason="Adjacent"/>
+    <disable_collisions link1="link1" link2="link2" reason="Adjacent"/>
+    <disable_collisions link1="link1" link2="link5" reason="Never"/>
+    <disable_collisions link1="link1" link2="link8" reason="Never"/>
+    <disable_collisions link1="link2" link2="link3" reason="Adjacent"/>
+    <disable_collisions link1="link2" link2="link4" reason="Never"/>
+    <disable_collisions link1="link2" link2="link5" reason="Never"/>
+    <disable_collisions link1="link2" link2="link7" reason="Never"/>
+    <disable_collisions link1="link2" link2="link8" reason="Never"/>
+    <disable_collisions link1="link3" link2="link4" reason="Adjacent"/>
+    <disable_collisions link1="link3" link2="link5" reason="Never"/>
+    <disable_collisions link1="link3" link2="link6" reason="Never"/>
+    <disable_collisions link1="link3" link2="link7" reason="Never"/>
+    <disable_collisions link1="link3" link2="link8" reason="Never"/>
+    <disable_collisions link1="link4" link2="link5" reason="Adjacent"/>
+    <disable_collisions link1="link4" link2="link6" reason="Never"/>
+    <disable_collisions link1="link4" link2="link7" reason="Never"/>
+    <disable_collisions link1="link4" link2="link8" reason="Never"/>
+    <disable_collisions link1="link5" link2="link6" reason="Adjacent"/>
+    <disable_collisions link1="link5" link2="link7" reason="Never"/>
+    <disable_collisions link1="link5" link2="link8" reason="Never"/>
+    <disable_collisions link1="link6" link2="link7" reason="Adjacent"/>
+    <disable_collisions link1="link6" link2="link8" reason="Adjacent"/>
+    <disable_collisions link1="link7" link2="link8" reason="Never"/>
+</robot>
