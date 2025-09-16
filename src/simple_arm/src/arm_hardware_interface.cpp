@@ -181,6 +181,13 @@ hardware_interface::CallbackReturn ArmHardware::on_activate(const rclcpp_lifecyc
     for (int servo_id : all_servo_ids) {
         driver_->enable_torque(servo_id, true);
     }
+    for (int id = 1; id <= 9; ++id) {  // Your servo IDs 1-9
+        if (!driver_->enable_torque(static_cast<uint8_t>(id), true)) {
+            RCLCPP_ERROR(rclcpp::get_logger("ArmHardware"), "Failed to enable torque for servo ID %d", id);
+            return hardware_interface::CallbackReturn::ERROR;
+        }
+    }
+    RCLCPP_INFO(rclcpp::get_logger("ArmHardware"), "Torque enabled for all servos.");
     return hardware_interface::CallbackReturn::SUCCESS;
 }
 
@@ -197,6 +204,10 @@ hardware_interface::CallbackReturn ArmHardware::on_deactivate(const rclcpp_lifec
     for (int servo_id : all_servo_ids) {
         driver_->enable_torque(servo_id, false);
     }
+    for (int id = 1; id <= 9; ++id) {
+        driver_->enable_torque(static_cast<uint8_t>(id), false);
+    }
+    RCLCPP_INFO(rclcpp::get_logger("ArmHardware"), "Torque disabled for all servos.");
     return hardware_interface::CallbackReturn::SUCCESS;
 }
 

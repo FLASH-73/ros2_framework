@@ -1,0 +1,20 @@
+# CHOMP Planner Configuration
+planning_time_limit: 5.0  # Max time for optimization (increase if early termination persists)
+max_iterations: 200  # Max iterations to allow full optimization
+max_iterations_after_collision_free: 5  # Iterations after collision-free path found
+smoothness_cost_weight: 0.1  # Weight for smoothness in cost function (affects velocity/accel timing)
+obstacle_cost_weight: 1.0  # Weight for collision avoidance
+learning_rate: 0.01  # Step size for gradient descent
+smoothness_cost_velocity: 0.0  # Cost for velocity smoothness
+smoothness_cost_acceleration: 1.0  # Cost for acceleration (helps with timed trajectories)
+smoothness_cost_jerk: 0.0  # Cost for jerk (set >0 for smoother timing if needed)
+ridge_factor: 0.0  # Noise for non-singularity
+use_pseudo_inverse: false
+pseudo_inverse_ridge_factor: 1e-4
+joint_update_limit: 0.1  # Limit on joint position updates per iteration
+collision_clearance: 0.2  # Safety distance from obstacles
+collision_threshold: 0.07  # Threshold for considering collisions
+trajectory_initialization_method: "fillTrajectory"  # Use OMPL path as initial (key for proper timing)
+use_stochastic_descent: true  # Add noise for better exploration
+animate_endeffector: false  # Disable for faster planning
+animate_endeffector_segment: "link6"  # Your EE link; adjust if needed

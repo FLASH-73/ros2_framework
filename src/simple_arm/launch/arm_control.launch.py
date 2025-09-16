@@ -58,21 +58,25 @@ def generate_launch_description():
     with open(joint_limits_path, 'r') as f:
         joint_limits = yaml.safe_load(f)
 
+    chomp_planning_path = os.path.join(moveit_config_pkg, 'config', 'chomp_planning.yaml')
+    with open(chomp_planning_path, 'r') as f:
+        chomp_config = yaml.safe_load(f)
     # --- MoveIt 2 ---
     move_group_node = Node(
         package='moveit_ros_move_group',
         executable='move_group',
         output='screen',
         parameters=[robot_description, robot_description_semantic, controllers_path, {'robot_description_kinematics': robot_description_kinematics},{'trajectory_execution.allowed_start_tolerance': 0.05},{'trajectory_execution.execution_velocity_scaling': 1.0}, 
-        {'trajectory_execution.execution_duration_monitoring': False}, {'planning_plugin': 'ompl_interface/OMPLPlanner'},  # Switch from CHOMP
+        {'trajectory_execution.execution_duration_monitoring': False}, {'planning_plugin': 'ompl_interface/OMPLPlanner'},  # Ensure OMPL
         {'request_adapters': [
             'default_planner_request_adapters/AddTimeOptimalParameterization',  # Adds timestamps/velocities
             'default_planner_request_adapters/FixWorkspaceBounds',
             'default_planner_request_adapters/FixStartStateBounds',
             'default_planner_request_adapters/FixStartStateCollision',
-            'default_planner_request_adapters/FixStartStatePathConstraints'
+            'default_planner_request_adapters/FixStartStatePathConstraints',
+            'chomp/OptimizerAdapter'  # Add CHOMP as optimizer
         ]},
-        {'ompl.algorithm': 'RRTConnectkConfigDefault'}, {'robot_description_planning.joint_limits': joint_limits}]
+        {'ompl.algorithm': 'RRTConnectkConfigDefault'}, {'robot_description_planning.joint_limits': joint_limits}, chomp_config]  # Add chomp_config from Step 2
     )
     
     # --- RViz ---
@@ -82,7 +86,7 @@ def generate_launch_description():
         name='rviz2',
         output='screen',
         arguments=['-d', os.path.join(moveit_config_pkg, 'config', 'moveit.rviz')],
-        parameters=[robot_description, robot_description_semantic]
+        parameters=[robot_description, robot_description_semantic, {'robot_description_kinematics': robot_description_kinematics}]
     )
 
     # --- Foxglove Bridge (Optional) ---
