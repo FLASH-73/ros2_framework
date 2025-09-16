@@ -1,4 +1,4 @@
-# ROS2 Framework for Constructor 1 
+# ROS2 Framework for Constructor I
 ![Mark II Robotic Arm](img/markII.2.png)
 
 [![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue?logo=ros)](https://docs.ros.org/en/humble/index.html)
@@ -8,7 +8,7 @@
 
 ## Project Overview
 
-This repository contains a complete ROS2-based framework for controlling the Mark II custom robotic arm. The arm is designed for affordable, no-expert robotics with a focus on AI experimentation, such as visual SLAM, pose estimation, and grasping tasks. It integrates ros2_control for hardware interfacing, MoveIt for motion planning and execution, and is set up in an NVIDIA Isaac ROS Docker container for GPU-accelerated AI capabilities.
+This repository contains a complete ROS2-based framework for controlling the Constructor I custom robotic arm. The arm is designed for affordable, no-expert robotics with a focus on AI experimentation, such as visual SLAM, pose estimation, and grasping tasks. It integrates ros2_control for hardware interfacing, MoveIt for motion planning and execution, and is set up in an NVIDIA Isaac ROS Docker container for GPU-accelerated AI capabilities.
 
 The codebase includes custom hardware drivers, control plugins, MoveIt configurations, and launch files. It supports both real hardware (Feetech STS3215 servos) and simulation modes, with RViz for visualization and interactive control.
 
@@ -39,6 +39,6 @@ Create a stable, low-latency robotic arm system for AI-driven tasks, enabling si
 - **ROS Version**: Humble (source /opt/ros/humble/setup.bash; container base may be Jazzy—manual fixes for compatibility).
 - **Dependencies**: rclcpp, hardware_interface, pluginlib, controller_manager, moveit_ros_move_group, rviz2, foxglove_bridge, colcon, rosdep.
 - **Container**: NVIDIA Isaac ROS Docker (built via run_dev.sh; mounts host workspace).
-- **Arm Hardware**: Mark II arm with 7 DOF (6 revolute + 1 prismatic gripper), Feetech STS3215 servos (1Mbps baud, IDs 1-13).
+- **Arm Hardware**: Constructor I arm with 7 DOF (6 revolute + 1 prismatic gripper), Feetech STS3215 servos (1Mbps baud, IDs 1-13).
 
 No real-time kernel by default (add for stability: `apt install linux-lowlatency-hwe-22.04`).
