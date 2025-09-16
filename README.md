@@ -1,4 +1,5 @@
 # ROS2 Framework for Mark II Robotic Arm
+![Mark II Robotic Arm](img/markII.2.png)
 
 [![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue?logo=ros)](https://docs.ros.org/en/humble/index.html)
 [![MoveIt](https://img.shields.io/badge/MoveIt-2-orange)](https://moveit.ros.org/)
