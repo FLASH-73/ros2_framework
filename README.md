@@ -1,4 +1,4 @@
-# ROS2 Framework for Mark II Robotic Arm
+# ROS2 Framework for Constructor 1 
 ![Mark II Robotic Arm](img/markII.2.png)
 
 [![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue?logo=ros)](https://docs.ros.org/en/humble/index.html)
