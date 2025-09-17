@@ -3,7 +3,7 @@
 initial_positions:
   base_link_Revolute-1: 0
   link1_Revolute-3: 0
-  link2_Revolute-4: 0
+  link2_Revolute-4: 0.08
   link3_Revolute-5: 0
   link4_Revolute-6: 0
   link5_Revolute-7: 0

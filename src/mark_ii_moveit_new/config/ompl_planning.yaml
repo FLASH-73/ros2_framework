@@ -1,0 +1,19 @@
+planning_plugin: ompl_interface/OMPLPlanner
+request_adapters:
+  - default_planner_request_adapters/FixWorkspaceBounds
+  - default_planner_request_adapters/FixStartStateBounds
+  - default_planner_request_adapters/FixStartStateCollision
+  - default_planner_request_adapters/FixStartStatePathConstraints
+  - default_planner_request_adapters/AddTimeOptimalParameterization  # Time first
+  - default_planner_request_adapters/AddRuckigTrajectorySmoothing  # Smooth with jerk after
+start_state_max_bounds_error: 0.1
+allow_integration_in_goal_trajectories: true
+
+arm:  # Your group
+  planner_configs:
+    - RRTConnectkConfigDefault
+    - RRTkConfigDefault
+    - PRMkConfigDefault
+    - LBKPIECEkConfigDefault
+  projection_evaluator: joints(link1_Revolute-3,link2_Revolute-4)
+  longest_valid_segment_fraction: 0.005

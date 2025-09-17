@@ -295,7 +295,10 @@ hardware_interface::return_type ArmHardware::write(const rclcpp::Time&, const rc
     }
 
     if (!commands_to_sync.empty()) {
+        //RCLCPP_INFO(rclcpp::get_logger("ArmHardware"), "Sending %zu commands to servos: %s", commands_to_sync.size(), "Positions logged");  // Add this
         driver_->sync_write_positions(commands_to_sync);
+    } else {
+        RCLCPP_WARN(rclcpp::get_logger("ArmHardware"), "No commands to send in write()");  // Add this
     }
     return hardware_interface::return_type::OK;
 }
