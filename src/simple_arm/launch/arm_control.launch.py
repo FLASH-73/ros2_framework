@@ -58,32 +58,26 @@ def generate_launch_description():
     with open(joint_limits_path, 'r') as f:
         joint_limits = yaml.safe_load(f)
 
-    chomp_planning_path = os.path.join(moveit_config_pkg, 'config', 'chomp_planning.yaml')
-    with open(chomp_planning_path, 'r') as f:
-        chomp_config = yaml.safe_load(f)
         # --- MoveIt 2 ---
     ompl_planning_path = os.path.join(moveit_config_pkg, 'config', 'ompl_planning.yaml')
     with open(ompl_planning_path, 'r') as f:
-        ompl_config = yaml.safe_load(f)
+        ompl_config = {'robot_description_planning': yaml.safe_load(f)}
 
     move_group_node = Node(
         package='moveit_ros_move_group',
         executable='move_group',
         output='screen',
-        parameters=[robot_description, robot_description_semantic, controllers_path, {'robot_description_kinematics': robot_description_kinematics},{'trajectory_execution.allowed_start_tolerance': 0.05},{'trajectory_execution.execution_velocity_scaling': 1.0}, 
-        {'trajectory_execution.execution_duration_monitoring': False}, {'planning_plugin': 'ompl_interface/OMPLPlanner'},  # Use OMPL
-        {'request_adapters': [
-            'default_planner_request_adapters/AddTimeOptimalParameterization',  # Adds timestamps/velocities
-            'default_planner_request_adapters/FixWorkspaceBounds',
-            'default_planner_request_adapters/FixStartStateBounds',
-            'default_planner_request_adapters/FixStartStateCollision',
-            'default_planner_request_adapters/FixStartStatePathConstraints'
-            # CHOMP adapter removed
-        ]},
-        {'ompl.algorithm': 'RRTConnectkConfigDefault'}, {'robot_description_planning.joint_limits': joint_limits}, {'planning_scene_monitor_options': {'publish_planning_scene': True}}, # chomp_config removed
-        {'allow_integration_in_goal_trajectories': True},ompl_config,{'allow_integration_in_goal_trajectories': True},
-        {'trajectory_execution.allowed_execution_duration_scaling': 2.0},
-        {'trajectory_execution.allowed_execution_duration_scaling': 1.5}]
+        parameters=[
+            robot_description,
+            robot_description_semantic,
+            controllers_path,
+            {'robot_description_kinematics': robot_description_kinematics},
+            ompl_config,  # Private OMPL
+            {'robot_description_planning.joint_limits': joint_limits},  # Private limits
+            {'trajectory_execution.allowed_start_tolerance': 0.05},
+            {'moveit_controller_manager': 'moveit_simple_controller_manager/MoveItSimpleControllerManager'},
+            {'moveit_manage_controllers': False}
+        ]
     )
     # --- RViz ---
     rviz_node = Node(
@@ -127,7 +121,7 @@ def generate_launch_description():
     )
 
     joint_trajectory_controller_spawner_delayed = TimerAction(
-        period=3.0, # Increased delay for robustness
+        period=2.0, # Increased delay for robustness
         actions=[Node(
             package='controller_manager',
             executable='spawner',
@@ -137,7 +131,7 @@ def generate_launch_description():
     )
 
     gripper_controller_spawner_delayed = TimerAction(
-        period=5.0, # Increased delay for robustness
+        period=3.0, # Increased delay for robustness
         actions=[Node(
             package='controller_manager',
             executable='spawner',

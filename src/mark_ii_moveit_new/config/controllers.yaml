@@ -20,8 +20,8 @@ move_group:
           - link5_Revolute-7
 
       gripper_controller:
-        action_ns: follow_joint_trajectory
-        type: FollowJointTrajectory
-        default: false
+        action_ns: gripper_cmd  # For GripperActionServer
+        type: GripperCommand  # Matches OpenArm's gripper type
+        default: true
         joints:
           - link6_Slider-8

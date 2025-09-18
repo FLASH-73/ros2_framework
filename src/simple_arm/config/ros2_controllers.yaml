@@ -1,26 +1,16 @@
+#this is the ros2_controllers.yaml file in src/simple_arm/config
 controller_manager:
   ros__parameters:
     update_rate: 100  # Hz
 
-    # Controller definitions
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
-
     joint_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    # Note: The gripper controller in MoveIt2 is often an "effort" or "position" based one.
-    # GripperActionController is for simple open/close commands. If you need more fine-grained control,
-    # you might switch this to a ForwardPositionController later.
     gripper_controller:
-      type: position_controllers/GripperActionController
+      type: position_controllers/GripperActionController  # Or joint_trajectory_controller/JointTrajectoryController if not GripperAction
 
-
-# Parameters for each controller
-joint_state_broadcaster:
-  ros__parameters:
-    # The type is already defined above
-    {}
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
 joint_trajectory_controller:
   ros__parameters:
@@ -35,11 +25,16 @@ joint_trajectory_controller:
       - position
     state_interfaces:
       - position
-      - velocity # Even if not used, it's good practice to export
-    state_publish_rate: 50.0
-    action_monitor_rate: 20.0
-    allow_partial_joints: false
+      - velocity
+      # Remove - effort (unsupported; add custom if servo load needed)
 
 gripper_controller:
   ros__parameters:
-    joint: link6_Slider-8
+    joints:
+      - link6_Slider-8  # Fix: Explicit list prevents "empty name"
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+      # Remove - effort
