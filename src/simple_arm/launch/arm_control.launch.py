@@ -1,11 +1,11 @@
 import os
+import yaml
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, TimerAction
-from launch.substitutions import LaunchConfiguration, Command
+from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
-from launch_ros.parameter_descriptions import ParameterValue
-import yaml
+from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     
@@ -17,102 +17,57 @@ def generate_launch_description():
     )
 
     # Get the package share directories
-    simple_arm_pkg = get_package_share_directory('simple_arm')
     moveit_config_pkg = get_package_share_directory('mark_ii_moveit_new')
 
-    # --- Robot Description (URDF) ---
-    # Load the URDF from a xacro file and pass the 'use_real_hardware' argument to it
-    robot_description_content = ParameterValue(
-        Command([
-            'xacro ',
-            os.path.join(moveit_config_pkg, 'config', 'MarkII_urdf.urdf.xacro'),
-            ' use_real_hardware:=', LaunchConfiguration('use_real_hardware')
-        ]),
-        value_type=str
+    # Use MoveItConfigsBuilder for standard config loading
+    moveit_config = (
+        MoveItConfigsBuilder("MarkII_urdf", package_name="mark_ii_moveit_new")
+        .robot_description(
+            file_path=os.path.join(moveit_config_pkg, "config", "MarkII_urdf.urdf.xacro"),
+            mappings={"use_real_hardware": LaunchConfiguration('use_real_hardware')}
+        )
+        .robot_description_semantic(file_path=os.path.join(moveit_config_pkg, "config", "MarkII_urdf.srdf"))
+        .trajectory_execution(file_path=os.path.join(moveit_config_pkg, "config", "controllers.yaml"))
+        .planning_pipelines(pipelines=["ompl"])
+        .to_moveit_configs()
     )
-    robot_description = {'robot_description': robot_description_content}
 
-    # --- Robot Description (SRDF) ---
-    srdf_path = os.path.join(moveit_config_pkg, 'config', 'MarkII_urdf.srdf')
-    with open(srdf_path, 'r') as srdf_file:
-        robot_description_semantic_content = srdf_file.read()
-    robot_description_semantic = {'robot_description_semantic': robot_description_semantic_content}
+    # Flatten controllers.yaml for top-level params
+    controllers_path = os.path.join(moveit_config_pkg, "config", "controllers.yaml")
+    with open(controllers_path, 'r') as f:
+        full_controllers = yaml.safe_load(f)
+        controllers_params = full_controllers['move_group']['ros__parameters']
+
+    # TOPP params (nested under 'ompl' for adapter)
+    topp_params = {
+        'ompl': {
+            'resample_dt': 0.01,       # Force 10ms steps for increasing timestamps
+            'path_tolerance': 0.1,     # Velocity tolerance
+            'min_angle_change': 0.001, # Min change to trigger resampling
+        }
+    }
+
+    # Merge all params into one dict (ensures overrides like 'ompl.resample_dt' apply)
+    all_params = moveit_config.to_dict()
+    all_params.update(controllers_params)
+    all_params.update(topp_params)
+    all_params.update({
+        'trajectory_execution.allowed_start_tolerance': 0.05,
+        'moveit_manage_controllers': False,
+    })
 
     # --- ROS2 Controllers Configuration ---
-    ros2_controllers_path = os.path.join(
-        moveit_config_pkg, # Corrected to use moveit_config_pkg as per your structure
-        'config',
-        'ros2_controllers.yaml'
-    )
-    controllers_path = os.path.join(
-        moveit_config_pkg,
-        'config',
-        'controllers.yaml'
-    )
-    kinematics_path = os.path.join(moveit_config_pkg, 'config', 'kinematics.yaml')
-    with open(kinematics_path, 'r') as f:
-        robot_description_kinematics = yaml.safe_load(f)
+    ros2_controllers_path = os.path.join(moveit_config_pkg, "config", "ros2_controllers.yaml")
 
-    # --- Joint Limits Configuration (new addition) ---
-    joint_limits_path = os.path.join(moveit_config_pkg, 'config', 'joint_limits.yaml')
-    with open(joint_limits_path, 'r') as f:
-        joint_limits = yaml.safe_load(f)
-
-        # --- MoveIt 2 ---
-    ompl_planning_path = os.path.join(moveit_config_pkg, 'config', 'ompl_planning.yaml')
-    with open(ompl_planning_path, 'r') as f:
-        ompl_config = {'robot_description_planning': yaml.safe_load(f)}
-
-    move_group_node = Node(
-        package='moveit_ros_move_group',
-        executable='move_group',
-        output='screen',
-        parameters=[
-            robot_description,
-            robot_description_semantic,
-            controllers_path,
-            {'robot_description_kinematics': robot_description_kinematics},
-            ompl_config,  # Private OMPL
-            {'robot_description_planning.joint_limits': joint_limits},  # Private limits
-            {'trajectory_execution.allowed_start_tolerance': 0.05},
-            {'moveit_controller_manager': 'moveit_simple_controller_manager/MoveItSimpleControllerManager'},
-            {'moveit_manage_controllers': False}
-        ]
-    )
-    # --- RViz ---
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output='screen',
-        arguments=['-d', os.path.join(moveit_config_pkg, 'config', 'moveit.rviz')],
-        parameters=[robot_description, robot_description_semantic, {'robot_description_kinematics': robot_description_kinematics}]
-    )
-
-    # --- Foxglove Bridge (Optional) ---
-    foxglove_bridge = Node(
-        package='foxglove_bridge',
-        executable='foxglove_bridge',
-        name='foxglove_bridge',
-        output='screen'
-    )
-
-    # --- Controller Manager (ros2_control) ---
-    # This node loads your C++ hardware interface plugin and the controllers.
+    # --- Controller Manager ---
     controller_manager = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        parameters=[robot_description, ros2_controllers_path],
-        output={
-            'stdout': 'screen',
-            'stderr': 'screen',
-        },
+        parameters=[moveit_config.robot_description, ros2_controllers_path],
+        output='screen',
     )
 
-    # --- Spawn Controllers ---
-    # The spawner nodes load the controllers into the running controller_manager.
-    # We delay them to ensure the controller_manager is fully initialized.
-    
+    # --- Spawn Controllers (delayed) ---
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -121,7 +76,7 @@ def generate_launch_description():
     )
 
     joint_trajectory_controller_spawner_delayed = TimerAction(
-        period=2.0, # Increased delay for robustness
+        period=4.0,
         actions=[Node(
             package='controller_manager',
             executable='spawner',
@@ -131,7 +86,7 @@ def generate_launch_description():
     )
 
     gripper_controller_spawner_delayed = TimerAction(
-        period=3.0, # Increased delay for robustness
+        period=5.0,
         actions=[Node(
             package='controller_manager',
             executable='spawner',
@@ -145,11 +100,40 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='both',
-        parameters=[robot_description]
+        parameters=[moveit_config.robot_description]
     )
 
-    # The order of nodes in the return list does not guarantee execution order.
-    # Use TimerAction or event handlers for dependencies.
+    # --- MoveGroup Node (with merged params) ---
+    move_group_node = Node(
+        package='moveit_ros_move_group',
+        executable='move_group',
+        output='screen',
+        parameters=[all_params],  # Single merged dict for proper overrides
+    )
+
+    # --- RViz ---
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', os.path.join(moveit_config_pkg, 'config', 'moveit.rviz')],
+        parameters=[
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
+            moveit_config.planning_pipelines,
+        ]
+    )
+
+    # --- Foxglove Bridge ---
+    foxglove_bridge = Node(
+        package='foxglove_bridge',
+        executable='foxglove_bridge',
+        name='foxglove_bridge',
+        output='screen'
+    )
+
     return LaunchDescription([
         use_real_hardware_arg,
         controller_manager,

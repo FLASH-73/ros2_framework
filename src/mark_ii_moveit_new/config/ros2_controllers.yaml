@@ -31,7 +31,7 @@ joint_trajectory_controller:
     allow_partial_joints_goal: false
     constraints:
       stopped_velocity_tolerance: 0.01
-      goal_time: 0.0  # Start immediately
+      goal_time: 0.1  # Min 0.1s duration (fixes zero-time shorts)
 
 gripper_controller:
   ros__parameters:

@@ -25787,8 +25787,1106 @@
 |   |       |-- stdout.log
 |   |       |-- stdout_stderr.log
 |   |       `-- streams.log
+|   |-- build_2025-09-18_09-29-34
+|   |   |-- ackermann_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- admittance_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- bicycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager_msgs
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- diff_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- effort_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- events.log
+|   |   |-- force_torque_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- forward_command_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gpio_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gripper_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface_testing
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- imu_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_apriltag_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_bi3d_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_launch_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nitros_bridge_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nova_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_pointcloud_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_r2b_galileo
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_rosbag_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_tensor_list_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_limits
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_state_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- mecanum_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pid_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pose_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- position_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- range_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_test_assets
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers_test_nodes
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2controlcli
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- simple_arm
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- steering_controllers_library
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- sts_driver_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- transmission_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- velocity_controllers
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_09-39-53
+|   |   |-- ackermann_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- admittance_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- bicycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager_msgs
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- diff_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- effort_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- events.log
+|   |   |-- force_torque_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- forward_command_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gpio_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gripper_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface_testing
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- imu_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_apriltag_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_bi3d_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_launch_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nitros_bridge_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nova_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_pointcloud_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_r2b_galileo
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_rosbag_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_tensor_list_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_limits
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_state_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- mecanum_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pid_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pose_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- position_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- range_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_test_assets
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers_test_nodes
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2controlcli
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- simple_arm
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- steering_controllers_library
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- sts_driver_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- transmission_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- velocity_controllers
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_09-53-31
+|   |   |-- ackermann_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- admittance_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- bicycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- controller_manager_msgs
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- diff_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- effort_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- events.log
+|   |   |-- force_torque_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- forward_command_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gpio_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- gripper_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- hardware_interface_testing
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- imu_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_common_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_apriltag_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_bi3d_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_common
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_launch_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nitros_bridge_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_nova_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_pointcloud_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_r2b_galileo
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_rosbag_utils
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_tensor_list_interfaces
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- isaac_ros_test_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_limits
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_state_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- mecanum_drive_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pid_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- pose_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- position_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- range_sensor_broadcaster
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_cmake
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_control_test_assets
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2_controllers_test_nodes
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- ros2controlcli
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_controller_manager
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- rqt_joint_trajectory_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- simple_arm
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- steering_controllers_library
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- sts_driver_py
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- transmission_interface
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   |-- tricycle_steering_controller
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- velocity_controllers
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_10-38-49
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_11-22-00
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_11-22-19
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_11-22-35
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_11-23-10
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_12-35-56
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_14-04-30
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_14-30-22
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-18_14-34-27
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
 |   |-- latest -> latest_build
-|   `-- latest_build -> build_2025-09-18_08-44-43
+|   `-- latest_build -> build_2025-09-18_14-34-27
 |-- src
 |   |-- build
 |   |   |-- COLCON_IGNORE
@@ -44059,4 +45157,4 @@
 |           `-- sts_driver.py
 `-- sync_git.sh
 
-10010 directories, 34049 files
+10199 directories, 34958 files
