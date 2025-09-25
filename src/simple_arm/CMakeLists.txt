@@ -55,7 +55,6 @@ install(FILES arm_hardware_plugin.xml
   DESTINATION share/${PROJECT_NAME}
 )
 
-
 # Install directories (configs, launches, etc.)
 install(DIRECTORY config description launch meshes
   DESTINATION share/${PROJECT_NAME}
@@ -65,6 +64,16 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install(PROGRAMS
+  src/joy_to_servo.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  src/marker_to_servo
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_export_dependencies(
   hardware_interface

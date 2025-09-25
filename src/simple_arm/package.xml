@@ -7,9 +7,13 @@
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>interactive_markers</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
   <buildtool_depend>pkgconfig</buildtool_depend>
-  <depend>rclpy</depend>
   <depend>rclcpp</depend>
   <depend>hardware_interface</depend>
   <depend>pluginlib</depend>
@@ -19,7 +23,8 @@
   <depend>sts_driver_py</depend>  <!-- If keeping -->
   <depend>python3-pip</depend>
   <depend>pyserial</depend>  <!-- If keeping Python parts -->
-
+  <depend>joy</depend>
+  <depend>sensor_msgs</depend>
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 

@@ -300,6 +300,12 @@ hardware_interface::return_type ArmHardware::write(const rclcpp::Time&, const rc
     } else {
         RCLCPP_WARN(rclcpp::get_logger("ArmHardware"), "No commands to send in write()");  // Add this
     }
+    // At end of write()
+    //RCLCPP_INFO(rclcpp::get_logger("ArmHardware"), "Sending %zu commands to servos", commands_to_sync.size());
+    //for (const auto& [id, pos] : commands_to_sync) {
+      //  RCLCPP_INFO(rclcpp::get_logger("ArmHardware"), "Servo ID %d: Position ticks %u", id, pos);
+    //}
+    driver_->sync_write_positions(commands_to_sync);
     return hardware_interface::return_type::OK;
 }
 

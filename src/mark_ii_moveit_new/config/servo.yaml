@@ -1,0 +1,32 @@
+servo_node:
+  ros__parameters:
+    move_group_name: "arm"  # Already correct; ensures no 'panda_arm' crash
+    planning_group: "arm" 
+    move_group: "arm" # Duplicate for override
+    planning_frame: "base_link"  # Fix mismatch  # Confirm with 'ros2 topic echo /robot_description' – if root is "base_link", change to "base_link"
+    ee_frame_name: "gripper_ee"
+    robot_link_command_frame: "gripper_ee"  # For twist; irrelevant for pose mode
+
+    incoming_command_timeout: 0.1
+    command_in_type: "pose"  # Change to unitless for better pose handling (absolute targets)
+    command_out_topic: "/joint_trajectory_controller/joint_trajectory"
+    command_out_type: "trajectory_msgs/JointTrajectory"
+    joint_topic: "/joint_states"
+
+    linear_scale: 0.3
+    angular_scale: 0.5
+    joint_scale: 0.4
+    singularity_threshold: 0.1
+    hard_stop_singularity_threshold: 0.15
+    collision_velocity_scale: 0.2
+    use_gazebo: false
+    publish_period: 0.01
+    joint_limit_margin: 0.05
+    low_pass_filter_coeff: 10.0
+    publish_joint_positions: true
+    publish_joint_velocities: true
+
+    check_collisions: true
+    collision_check_rate: 100
+    collision_check_type: "STOP_ON_COLLISION"
+    allowed_planning_time: 0.1

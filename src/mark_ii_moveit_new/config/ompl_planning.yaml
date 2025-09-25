@@ -16,3 +16,5 @@ arm:  # Your group
     - LBKPIECEConfigDefault
   projection_evaluator: joints(link1_Revolute-3,link2_Revolute-4)
   longest_valid_segment_fraction: 0.005
+
+  

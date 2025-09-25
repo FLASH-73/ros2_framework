@@ -4,11 +4,42 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, TimerAction
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import LoadComposableNodes, ComposableNodeContainer
+from launch_ros.descriptions import ComposableNode
 from ament_index_python.packages import get_package_share_directory
 from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
-    
+    servo_params_dict = {
+        'move_group_name': 'arm',
+        'planning_group': 'arm',
+        'move_group': 'arm',
+        'planning_frame': 'base_link',
+        'ee_frame_name': 'gripper_ee',
+        'robot_link_command_frame': 'gripper_ee',
+        'incoming_command_timeout': 0.1,
+        'command_in_type': 'unitless',  # Force unitless for Twist
+        'command_out_topic': '/joint_trajectory_controller/joint_trajectory',
+        'command_out_type': 'trajectory_msgs/JointTrajectory',
+        'joint_topic': '/joint_states',
+        'linear_scale': 5.0,  # Increase for responsiveness
+        'angular_scale': 5.0,  # Increase
+        'joint_scale': 0.8,   # Increase for joint increments
+        'singularity_threshold': 0.2,  # Relax to avoid IK rejection
+        'hard_stop_singularity_threshold': 0.3,
+        'collision_velocity_scale': 0.2,
+        'use_gazebo': False,
+        'publish_period': 0.008,  # Faster for smoother control (125Hz)
+        'joint_limit_margin': 0.05,
+        'low_pass_filter_coeff': 2.0,  # Less filtering for responsiveness
+        'publish_joint_positions': True,
+        'publish_joint_velocities': True,
+        'check_collisions': False,  # Keep disabled for now
+        'collision_check_rate': 100,
+        'collision_check_type': 'STOP_ON_COLLISION',
+        'allowed_planning_time': 0.2  # More time for IK
+    }
+    #print("Servo parameters:", servo_params)
     # Declare the launch argument for switching between real and simulated hardware
     use_real_hardware_arg = DeclareLaunchArgument(
         'use_real_hardware',
@@ -41,9 +72,9 @@ def generate_launch_description():
     # TOPP params (nested under 'ompl' for adapter)
     topp_params = {
         'ompl': {
-            'resample_dt': 0.01,       # Force 10ms steps for increasing timestamps
-            'path_tolerance': 0.1,     # Velocity tolerance
-            'min_angle_change': 0.001, # Min change to trigger resampling
+            'resample_dt': 0.05,       # Force 10ms steps for increasing timestamps
+            'path_tolerance': 0.05,     # Velocity tolerance
+            'min_angle_change': 0.005, # Min change to trigger resampling
         }
     }
 
@@ -52,12 +83,22 @@ def generate_launch_description():
     all_params.update(controllers_params)
     all_params.update(topp_params)
     all_params.update({
-        'trajectory_execution.allowed_start_tolerance': 0.05,
+        'planning_pipelines': ['ompl'],
+        'planning_plugin': 'ompl_interface/OMPLPlanner',
+        'default_planning_pipeline': 'ompl',
+        'use_sim_time': False,
+        'allow_integration_in_goal_trajectories': True,
+        'request_adapters': 'default_planner_request_adapters/AddTimeOptimalParameterization',
+        'trajectory_execution.allowed_start_tolerance': 0.1,
         'moveit_manage_controllers': False,
+        'move_group/planning_plugin': 'ompl_interface/OMPLPlanner'  # Explicit override
     })
 
     # --- ROS2 Controllers Configuration ---
     ros2_controllers_path = os.path.join(moveit_config_pkg, "config", "ros2_controllers.yaml")
+
+    servo_params_path = os.path.join(moveit_config_pkg, "config", "servo.yaml")
+    
 
     # --- Controller Manager ---
     controller_manager = Node(
@@ -94,7 +135,79 @@ def generate_launch_description():
             output='screen',
         )]
     )
+    #print("Servo params path:", servo_params_path)  # Add before servo_node
+    """
+    with open(servo_params_path, 'r') as f:
+        servo_params_dict = yaml.safe_load(f)['servo_node']['ros__parameters']  # Flatten to dict
+
+    servo_params_dict.update({
+        'move_group_name': 'arm',
+        'planning_group': 'arm'
+    })
+    """
     
+    servo_node = Node(
+        package='moveit_servo',
+        executable='servo_node_main',
+        name='servo_node',
+        output='screen',
+        parameters=[
+            servo_params_dict,
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
+            moveit_config.planning_pipelines,
+            {'use_intra_process_comms': True}
+        ],
+        #extra_arguments=[{'use_intra_process_comms': True}],
+    )
+    """
+    servo_container = ComposableNodeContainer(
+        name='servo_container',
+        namespace='',
+        package='rclcpp_components',
+        executable='component_container',
+        output='screen',
+    )
+    servo_composable = LoadComposableNodes(
+        target_container='servo_container',
+        composable_node_descriptions=[
+            ComposableNode(
+                package='moveit_servo',
+                plugin='moveit_servo::ServoNode',  # Use plugin class
+                name='servo_node',
+                parameters=[
+                    servo_params_dict,
+                    moveit_config.robot_description,
+                    moveit_config.robot_description_semantic,
+                    moveit_config.robot_description_kinematics,
+                    moveit_config.planning_pipelines,
+                    {'use_intra_process_comms': True},  # Enables intra-process
+                    {'move_group_name': 'arm'},  # Force override
+                ],
+            )
+        ],
+    )"""
+    # Joy node for PS4 controller
+    joy_node = Node(
+        package='joy',
+        executable='joy_node',
+        name='joy_node',
+        output='screen',
+        parameters=[{
+            'dev': '/dev/input/js0',  # Adjust if your PS4 is js1, etc. (check dmesg or ls /dev/input)
+            'deadzone': 0.05,
+            'autorepeat_rate': 20.0,
+        }]
+    )
+
+    # Joy to Servo bridge
+    joy_to_servo_node = Node(
+        package='simple_arm',
+        executable='joy_to_servo.py',
+        name='joy_to_servo',
+        output='screen'
+    )
     # --- Robot State Publisher ---
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -133,15 +246,24 @@ def generate_launch_description():
         name='foxglove_bridge',
         output='screen'
     )
+    marker_bridge = Node(
+        package='simple_arm',
+        executable='marker_to_servo',
+        output='screen'
+    )
 
     return LaunchDescription([
         use_real_hardware_arg,
         controller_manager,
         robot_state_publisher_node,
         move_group_node,
+        joy_node,
+        joy_to_servo_node,
         rviz_node,
         foxglove_bridge,
         joint_state_broadcaster_spawner,
         joint_trajectory_controller_spawner_delayed,
         gripper_controller_spawner_delayed,
+        servo_node,
+        marker_bridge,
     ])
