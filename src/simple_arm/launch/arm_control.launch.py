@@ -11,34 +11,35 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     servo_params_dict = {
-        'move_group_name': 'arm',
-        'planning_group': 'arm',
-        'move_group': 'arm',
-        'planning_frame': 'base_link',
-        'ee_frame_name': 'gripper_ee',
-        'robot_link_command_frame': 'gripper_ee',
-        'incoming_command_timeout': 0.1,
-        'command_in_type': 'unitless',  # Force unitless for Twist
-        'command_out_topic': '/joint_trajectory_controller/joint_trajectory',
-        'command_out_type': 'trajectory_msgs/JointTrajectory',
-        'joint_topic': '/joint_states',
-        'linear_scale': 5.0,  # Increase for responsiveness
-        'angular_scale': 5.0,  # Increase
-        'joint_scale': 0.8,   # Increase for joint increments
-        'singularity_threshold': 0.2,  # Relax to avoid IK rejection
-        'hard_stop_singularity_threshold': 0.3,
-        'collision_velocity_scale': 0.2,
-        'use_gazebo': False,
-        'publish_period': 0.008,  # Faster for smoother control (125Hz)
-        'joint_limit_margin': 0.05,
-        'low_pass_filter_coeff': 2.0,  # Less filtering for responsiveness
-        'publish_joint_positions': True,
-        'publish_joint_velocities': True,
-        'check_collisions': False,  # Keep disabled for now
-        'collision_check_rate': 100,
-        'collision_check_type': 'STOP_ON_COLLISION',
-        'allowed_planning_time': 0.2  # More time for IK
-    }
+    'move_group_name': 'arm',
+    'planning_group': 'arm',
+    'move_group': 'arm',
+    'planning_frame': 'base_link',
+    'ee_frame_name': 'gripper_ee',
+    'robot_link_command_frame': 'gripper_ee',
+    'incoming_command_timeout': 0.1,
+    'command_in_type': 'unitless',
+    'command_out_topic': '/joint_trajectory_controller/joint_trajectory',
+    'command_out_type': 'trajectory_msgs/JointTrajectory',
+    'joint_topic': '/joint_states',
+    'linear_scale': 10.0,  # Further increase for visibility
+    'angular_scale': 10.0,
+    'joint_scale': 1.0,
+    'singularity_threshold': 0.5,  # Relax further
+    'hard_stop_singularity_threshold': 0.7,
+    'collision_velocity_scale': 0.2,
+    'use_gazebo': False,
+    'publish_period': 0.005,  # 200Hz for faster response
+    'joint_limit_margin': 0.1,  # Relax joint limits
+    'low_pass_filter_coeff': 1.0,  # Minimal filtering
+    'publish_joint_positions': True,
+    'publish_joint_velocities': True,
+    'check_collisions': False,
+    'collision_check_rate': 100,
+    'collision_check_type': 'STOP_ON_COLLISION',
+    'allowed_planning_time': 0.5,
+    'print_servo_debug': True  # Custom param for debug logging
+}
     #print("Servo parameters:", servo_params)
     # Declare the launch argument for switching between real and simulated hardware
     use_real_hardware_arg = DeclareLaunchArgument(
