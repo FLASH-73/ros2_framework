@@ -90,11 +90,12 @@ def generate_launch_description():
         'use_sim_time': False,
         'allow_integration_in_goal_trajectories': True,
         'request_adapters': 'default_planner_request_adapters/AddTimeOptimalParameterization',
-        'trajectory_execution.allowed_start_tolerance': 0.1,
+        'trajectory_execution.allowed_start_tolerance': 0.2,  # Relax tolerance
         'moveit_manage_controllers': False,
-        'move_group/planning_plugin': 'ompl_interface/OMPLPlanner'  # Explicit override
+        'move_group/planning_plugin': 'ompl_interface/OMPLPlanner',
+        'move_group/default_planning_pipeline': 'ompl',  # Additional override
+        'move_group/available_plugins': ['ompl_interface/OMPLPlanner']  # Restrict to OMPL
     })
-
     # --- ROS2 Controllers Configuration ---
     ros2_controllers_path = os.path.join(moveit_config_pkg, "config", "ros2_controllers.yaml")
 
