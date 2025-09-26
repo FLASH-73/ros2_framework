@@ -11,35 +11,36 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     servo_params_dict = {
-    'move_group_name': 'arm',
-    'planning_group': 'arm',
-    'move_group': 'arm',
-    'planning_frame': 'base_link',
-    'ee_frame_name': 'gripper_ee',
-    'robot_link_command_frame': 'gripper_ee',
-    'incoming_command_timeout': 0.1,
-    'command_in_type': 'unitless',
-    'command_out_topic': '/joint_trajectory_controller/joint_trajectory',
-    'command_out_type': 'trajectory_msgs/JointTrajectory',
-    'joint_topic': '/joint_states',
-    'linear_scale': 10.0,  # Further increase for visibility
-    'angular_scale': 10.0,
-    'joint_scale': 1.0,
-    'singularity_threshold': 0.5,  # Relax further
-    'hard_stop_singularity_threshold': 0.7,
-    'collision_velocity_scale': 0.2,
-    'use_gazebo': False,
-    'publish_period': 0.005,  # 200Hz for faster response
-    'joint_limit_margin': 0.1,  # Relax joint limits
-    'low_pass_filter_coeff': 1.0,  # Minimal filtering
-    'publish_joint_positions': True,
-    'publish_joint_velocities': True,
-    'check_collisions': False,
-    'collision_check_rate': 100,
-    'collision_check_type': 'STOP_ON_COLLISION',
-    'allowed_planning_time': 0.5,
-    'print_servo_debug': True  # Custom param for debug logging
-}
+        'move_group_name': 'arm',
+        'planning_group': 'arm',
+        'move_group': 'arm',
+        'planning_frame': 'base_link',
+        'ee_frame_name': 'gripper_ee',
+        'robot_link_command_frame': 'gripper_ee',
+        'incoming_command_timeout': 0.5,  # Increase to avoid "too old" drops
+        'command_in_type': 'twist',
+        'command_out_topic': '/joint_trajectory_controller/joint_trajectory',
+        'command_out_type': 'trajectory_msgs/JointTrajectory',
+        'joint_topic': '/joint_states',
+        'twist_command_topic': '/servo_node/delta_twist_cmds',  # Explicit to force subscription
+        'linear_scale': 50.0,  # High for visible moves
+        'angular_scale': 50.0,
+        'joint_scale': 1.0,
+        'singularity_threshold': 0.8,
+        'hard_stop_singularity_threshold': 1.0,
+        'collision_velocity_scale': 0.2,
+        'use_gazebo': False,
+        'publish_period': 0.005,
+        'joint_limit_margin': 0.15,
+        'low_pass_filter_coeff': 0.5,  # Low to reduce dropping
+        'publish_joint_positions': True,
+        'publish_joint_velocities': True,
+        'check_collisions': False,
+        'collision_check_rate': 100,
+        'collision_check_type': 'STOP_ON_COLLISION',
+        'allowed_planning_time': 1.0,
+        'print_servo_debug': True  # If custom, but mainly rely on log level
+    }
     #print("Servo parameters:", servo_params)
     # Declare the launch argument for switching between real and simulated hardware
     use_real_hardware_arg = DeclareLaunchArgument(
@@ -91,10 +92,12 @@ def generate_launch_description():
         'allow_integration_in_goal_trajectories': True,
         'request_adapters': 'default_planner_request_adapters/AddTimeOptimalParameterization',
         'trajectory_execution.allowed_start_tolerance': 0.2,  # Relax tolerance
-        'moveit_manage_controllers': False,
+        'moveit_manage_controllers': True,
         'move_group/planning_plugin': 'ompl_interface/OMPLPlanner',
         'move_group/default_planning_pipeline': 'ompl',  # Additional override
-        'move_group/available_plugins': ['ompl_interface/OMPLPlanner']  # Restrict to OMPL
+        'move_group/available_plugins': ['ompl_interface/OMPLPlanner'],  # Restrict to OMPL
+        'move_group/planner_configs': ['RRTConnectkConfigDefault'],  # OMPL config
+        'move_group/chomp/enabled': False,  # Disable CHOMP explicitly
     })
     # --- ROS2 Controllers Configuration ---
     ros2_controllers_path = os.path.join(moveit_config_pkg, "config", "ros2_controllers.yaml")
@@ -148,20 +151,26 @@ def generate_launch_description():
     })
     """
     
-    servo_node = Node(
-        package='moveit_servo',
-        executable='servo_node_main',
-        name='servo_node',
-        output='screen',
-        parameters=[
-            servo_params_dict,
-            moveit_config.robot_description,
-            moveit_config.robot_description_semantic,
-            moveit_config.robot_description_kinematics,
-            moveit_config.planning_pipelines,
-            {'use_intra_process_comms': True}
-        ],
-        #extra_arguments=[{'use_intra_process_comms': True}],
+    servo_node_delayed = TimerAction(
+        period=6.0,
+        actions=[
+            Node(
+                package='moveit_servo',
+                executable='servo_node_main',
+                name='servo_node',
+                output='screen',
+                parameters=[
+                    servo_params_dict,
+                    moveit_config.robot_description,
+                    moveit_config.robot_description_semantic,
+                    moveit_config.robot_description_kinematics,
+                    moveit_config.planning_pipelines,
+                    {'use_intra_process_comms': True}
+                ],
+                arguments=['--ros-args', '--log-level', 'moveit_servo:=debug'],  # Enable debug logging
+                #extra_arguments=[{'use_intra_process_comms': True}],
+            )
+        ]
     )
     """
     servo_container = ComposableNodeContainer(
@@ -266,6 +275,6 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         joint_trajectory_controller_spawner_delayed,
         gripper_controller_spawner_delayed,
-        servo_node,
+        servo_node_delayed,
         marker_bridge,
     ])

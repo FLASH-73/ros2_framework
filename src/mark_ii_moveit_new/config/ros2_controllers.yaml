@@ -6,7 +6,7 @@ controller_manager:
       type: joint_trajectory_controller/JointTrajectoryController
 
     gripper_controller:
-      type: position_controllers/GripperActionController  # For position cmds on prismatic
+      type: joint_trajectory_controller/JointTrajectoryController  # For position cmds on prismatic
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -24,7 +24,7 @@ joint_trajectory_controller:
       - position
     state_interfaces:
       - position
-      - velocity
+    
       # No effort—your hardware doesn't export it
 
     # Optional: From OpenArm—tolerances for smoother exec
@@ -35,9 +35,10 @@ joint_trajectory_controller:
 
 gripper_controller:
   ros__parameters:
-    joint: link6_Slider-8
+    joints: 
+      - link6_Slider-8
     command_interfaces:
       - position
     state_interfaces:
       - position
-      - velocity
+      

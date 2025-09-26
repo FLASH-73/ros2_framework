@@ -36,7 +36,7 @@
                     <param name="initial_value">${initial_positions['base_link_Revolute-1']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+      
         </joint>
         <joint name="link1_Revolute-3">
             <command_interface name="position" />
@@ -45,7 +45,7 @@
                     <param name="initial_value">${initial_positions['link1_Revolute-3']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+          
         </joint>
         <joint name="link2_Revolute-4">
             <command_interface name="position" />
@@ -54,7 +54,7 @@
                     <param name="initial_value">${initial_positions['link2_Revolute-4']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+         
         </joint>
         <joint name="link3_Revolute-5">
             <command_interface name="position" />
@@ -63,7 +63,7 @@
                     <param name="initial_value">${initial_positions['link3_Revolute-5']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+            
         </joint>
         <joint name="link4_Revolute-6">
             <command_interface name="position" />
@@ -72,7 +72,7 @@
                     <param name="initial_value">${initial_positions['link4_Revolute-6']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+         
         </joint>
         <joint name="link5_Revolute-7">
             <command_interface name="position" />
@@ -81,7 +81,7 @@
                     <param name="initial_value">${initial_positions['link5_Revolute-7']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+          
         </joint>
         <joint name="link6_Slider-8">
             <command_interface name="position" />
@@ -90,7 +90,7 @@
                     <param name="initial_value">${initial_positions['link6_Slider-8']}</param>
                 </xacro:unless>
             </state_interface>
-            <state_interface name="velocity" />
+            
         </joint>
     </ros2_control>
 

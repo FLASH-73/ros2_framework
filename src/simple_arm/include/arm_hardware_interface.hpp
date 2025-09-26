@@ -42,7 +42,7 @@ private:
     std::map<std::string, std::optional<double>> last_wrapped_angles_;
     std::vector<std::string> joint_names_;
     const double BASE_JOINT_RANGE = 2 * M_PI;
-    
+ 
 };
 
 }  // namespace simple_arm

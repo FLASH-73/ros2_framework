@@ -17,4 +17,7 @@ arm:  # Your group
   projection_evaluator: joints(link1_Revolute-3,link2_Revolute-4)
   longest_valid_segment_fraction: 0.005
 
-  
+default_planner_request_adapters/AddTimeOptimalParameterization:
+  resample_dt: 0.05
+  min_angle_change: 0.001
+  path_tolerance: 0.1
