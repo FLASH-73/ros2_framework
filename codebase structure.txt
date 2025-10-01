@@ -33304,6 +33304,7 @@
 |   |           |   |-- joint_limits.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/joint_limits.yaml
 |   |           |   |-- kinematics.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/kinematics.yaml
 |   |           |   |-- moveit.rviz -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/moveit.rviz
+|   |           |   |-- moveit_controllers.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/moveit_controllers.yaml
 |   |           |   |-- ompl_planning.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/ompl_planning.yaml
 |   |           |   |-- pilz_cartesian_limits.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/pilz_cartesian_limits.yaml
 |   |           |   |-- planning_plugin.yaml -> /workspaces/isaac_ros-dev/src/mark_ii_moveit_new/config/planning_plugin.yaml
@@ -36606,8 +36607,10 @@
 |   |           |   `-- ld_library_path_lib.sh
 |   |           |-- launch
 |   |           |   |-- __pycache__
-|   |           |   |   `-- arm_control.launch.cpython-310.pyc
+|   |           |   |   |-- arm_control.launch.cpython-310.pyc
+|   |           |   |   `-- hardware_test.launch.cpython-310.pyc
 |   |           |   |-- arm_control.launch.py -> /workspaces/isaac_ros-dev/src/simple_arm/launch/arm_control.launch.py
+|   |           |   |-- hardware_test.launch.py -> /workspaces/isaac_ros-dev/src/simple_arm/launch/hardware_test.launch.py
 |   |           |   `-- realsense.launch.py -> /workspaces/isaac_ros-dev/src/simple_arm/launch/realsense.launch.py
 |   |           |-- local_setup.bash -> /workspaces/isaac_ros-dev/build/simple_arm/ament_cmake_environment_hooks/local_setup.bash
 |   |           |-- local_setup.dsv -> /workspaces/isaac_ros-dev/build/simple_arm/ament_cmake_environment_hooks/local_setup.dsv
@@ -57213,8 +57216,1181 @@
 |   |       |-- stdout.log
 |   |       |-- stdout_stderr.log
 |   |       `-- streams.log
+|   |-- build_2025-09-25_15-13-29
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-25_15-59-53
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-25_20-04-23
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-25_20-23-37
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_10-18-47
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_15-45-37
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_16-43-58
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_16-56-44
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_17-20-54
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_18-31-14
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-13-09
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-20-45
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-21-01
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-21-18
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-51-57
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_20-56-07
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-02-38
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-10-12
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-15-31
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-17-58
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-21-23
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-23-20
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-26_21-26-37
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-01-37
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-04-04
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-28-13
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-34-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-37-35
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-50-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_10-57-10
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-05-40
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-11-14
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-44-41
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-48-42
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-48-49
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-52-41
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_11-59-04
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_12-21-03
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_12-45-06
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_12-54-09
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_13-21-20
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_13-58-51
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_14-00-53
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-27_14-11-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_08-48-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_09-59-16
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_10-42-47
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_11-20-50
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_11-25-21
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_11-39-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_12-40-29
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_12-44-00
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_12-57-39
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_13-25-29
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_13-28-05
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_14-07-39
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_20-18-49
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_20-47-33
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_20-59-08
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-28_21-07-44
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_12-17-01
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_12-18-39
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_12-20-40
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_12-52-54
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_13-17-50
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_13-19-33
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_13-20-09
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_13-41-16
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_14-02-57
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_14-10-37
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_14-10-56
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_16-33-02
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_16-38-05
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_16-51-57
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_18-33-12
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_18-33-54
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_19-05-45
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-09-30_19-09-16
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
+|   |-- build_2025-10-01_09-03-09
+|   |   |-- events.log
+|   |   |-- logger_all.log
+|   |   |-- mark_ii_moveit_new
+|   |   |   |-- command.log
+|   |   |   |-- stderr.log
+|   |   |   |-- stdout.log
+|   |   |   |-- stdout_stderr.log
+|   |   |   `-- streams.log
+|   |   `-- simple_arm
+|   |       |-- command.log
+|   |       |-- stderr.log
+|   |       |-- stdout.log
+|   |       |-- stdout_stderr.log
+|   |       `-- streams.log
 |   |-- latest -> latest_build
-|   `-- latest_build -> build_2025-09-25_14-42-56
+|   `-- latest_build -> build_2025-10-01_09-03-09
 |-- src
 |   |-- build
 |   |   |-- COLCON_IGNORE
@@ -74522,6 +75698,7 @@
 |   |   |   |-- joint_limits.yaml
 |   |   |   |-- kinematics.yaml
 |   |   |   |-- moveit.rviz
+|   |   |   |-- moveit_controllers.yaml
 |   |   |   |-- ompl_planning.yaml
 |   |   |   |-- pilz_cartesian_limits.yaml
 |   |   |   |-- planning_plugin.yaml
@@ -77649,7 +78826,6 @@
 |   |   |-- ai_pi0_control.py
 |   |   |-- arm_hardware_plugin.xml
 |   |   |-- config
-|   |   |   `-- ros2_controllers.yaml
 |   |   |-- description
 |   |   |   `-- MarkII_urdf.urdf
 |   |   |-- include
@@ -77658,6 +78834,7 @@
 |   |   |   `-- sts_driver.hpp
 |   |   |-- launch
 |   |   |   |-- arm_control.launch.py
+|   |   |   |-- hardware_test.launch.py
 |   |   |   `-- realsense.launch.py
 |   |   |-- meshes
 |   |   |   |-- base_link.stl
@@ -77689,4 +78866,4 @@
 |           `-- sts_driver.py
 `-- sync_git.sh
 
-14786 directories, 62903 files
+15021 directories, 63845 files

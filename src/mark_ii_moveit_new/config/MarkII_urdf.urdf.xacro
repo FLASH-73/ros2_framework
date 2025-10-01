@@ -1,13 +1,7 @@
+<?xml version="1.0"?>
 <robot name="MarkII_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:include filename="$(find simple_arm)/description/MarkII_urdf.urdf" />
     <xacro:include filename="$(find mark_ii_moveit_new)/config/MarkII_urdf.ros2_control.xacro" />
-
-    <link name="world" />
-    <joint name="world_joint" type="fixed">
-        <origin rpy="0 0 0" xyz="0 0 0" />
-        <parent link="world" />
-        <child link="base_link" />
-    </joint>
 
 </robot>

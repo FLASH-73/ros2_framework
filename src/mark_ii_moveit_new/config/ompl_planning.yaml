@@ -1,23 +1,23 @@
-planning_plugin: ompl_interface/OMPLPlanner
-request_adapters: >-
-  default_planner_request_adapters/FixWorkspaceBounds
-  default_planner_request_adapters/FixStartStateBounds
-  default_planner_request_adapters/FixStartStateCollision
-  default_planner_request_adapters/FixStartStatePathConstraints
-  default_planner_request_adapters/AddTimeOptimalParameterization
-start_state_max_bounds_error: 0.1
-allow_integration_in_goal_trajectories: true
+planning_provider: ompl_interface/OMPLPlanner
 
-arm:  # Your group
-  planner_configs:
-    - RRTConnectConfigDefault  # Standard (no 'k' warnings)
-    - RRTConfigDefault
-    - PRMConfigDefault
-    - LBKPIECEConfigDefault
-  projection_evaluator: joints(link1_Revolute-3,link2_Revolute-4)
-  longest_valid_segment_fraction: 0.005
+ompl:
+  ros__parameters:
+    planning_plugins:
+      - ompl_interface/OMPLPlanner
+    request_adapters: >-
+      default_planner_request_adapters/AddTimeOptimalParameterization
+      default_planner_request_adapters/FixWorkspaceBounds
+      default_planner_request_adapters/FixStartStateBounds
+      default_planner_request_adapters/FixStartStateCollision
+      default_planner_request_adapters/FixStartStatePathConstraints
 
-default_planner_request_adapters/AddTimeOptimalParameterization:
-  resample_dt: 0.05
-  min_angle_change: 0.001
-  path_tolerance: 0.1
+    # Set the resampling time step to fix execution errors
+    add_time_optimal_parameterization:
+      resample_dt: 0.05
+    
+    # Define the default planners for the 'arm' group
+    arm:
+      planner_configs:
+        - RRTConnect
+      projection_evaluator: joints(link1_Revolute-3,link2_Revolute-4)
+      longest_valid_segment_fraction: 0.005

@@ -1,17 +1,18 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100  # Hz (matches your hardware)
-
-    joint_trajectory_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-
-    gripper_controller:
-      type: joint_trajectory_controller/JointTrajectoryController  # For position cmds on prismatic
+    update_rate: 100  # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-joint_trajectory_controller:
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    gripper_controller:
+      type: position_controllers/GripperActionController
+
+# Parameters for the individual controllers
+arm_controller:
   ros__parameters:
     joints:
       - base_link_Revolute-1
@@ -24,21 +25,9 @@ joint_trajectory_controller:
       - position
     state_interfaces:
       - position
-    
-      # No effort—your hardware doesn't export it
-
-    # Optional: From OpenArm—tolerances for smoother exec
-    allow_partial_joints_goal: false
-    constraints:
-      stopped_velocity_tolerance: 0.01
-      goal_time: 0.1  # Min 0.1s duration (fixes zero-time shorts)
+      - velocity
+   
 
 gripper_controller:
   ros__parameters:
-    joints: 
-      - link6_Slider-8
-    command_interfaces:
-      - position
-    state_interfaces:
-      - position
-      
+    joint: link6_Slider-8

@@ -4,8 +4,8 @@ servo_node:
     planning_group: "arm" 
     move_group: "arm" # Duplicate for override
     planning_frame: "base_link"  # Fix mismatch  # Confirm with 'ros2 topic echo /robot_description' – if root is "base_link", change to "base_link"
-    ee_frame_name: "gripper_ee"
-    robot_link_command_frame: "gripper_ee"  # For twist; irrelevant for pose mode
+    ee_frame_name: "gripper"
+    robot_link_command_frame: "gripper"  # For twist; irrelevant for pose mode
 
     incoming_command_timeout: 0.1
     command_in_type: "pose"  # Change to unitless for better pose handling (absolute targets)

@@ -1,0 +1,28 @@
+# For MoveIt. Connects MoveIt planning groups to the active ros2_control controllers.
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+
+moveit_simple_controller_manager:
+  
+  controller_names:
+    - arm_controller
+    - gripper_controller
+
+  arm_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - base_link_Revolute-1
+      - link1_Revolute-3
+      - link2_Revolute-4
+      - link3_Revolute-5
+      - link4_Revolute-6
+      - link5_Revolute-7
+
+  gripper_controller:
+    type: GripperCommand
+    action_ns: gripper_cmd
+    default: true
+    joints:
+      - link6_Slider-8

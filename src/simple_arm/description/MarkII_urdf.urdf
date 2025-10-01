@@ -1,11 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot name="MarkII_urdf">
+<robot name="MarkII_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
     <link name="base_link">
-        <inertial>
-            <origin xyz="0.035458480343119846 -6.348038499793762e-05 0.04884264658749845" rpy="0.0 0.0 0.0" />
-            <mass value="0.39602545916549503" />
-            <inertia ixx="0.0008760560529699657" iyy="0.0006208810412874053" izz="0.0008639242629666616" ixy="-3.769413947208682e-08" iyz="4.586236426702315e-07" ixz="3.627291135214919e-05" />
-        </inertial>
         <visual name="base_link_visual">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <geometry>
@@ -198,7 +193,7 @@
             </geometry>
         </collision>
     </link>
-    <link name="gripper_ee" />
+    <link name="gripper" />
     <joint name="base_link_Revolute-1" type="continuous">
         <origin xyz="0.0325 -0.0001 0.092" rpy="3.1415926535897927 -0.0 0.0" />
         <parent link="base_link" />
@@ -253,11 +248,19 @@
         <limit lower="0.045" upper="-0.002" effort="1000000.0" velocity="1000000.0" />
         <mimic joint="link6_Slider-8" multiplier="1" offset="0" />
     </joint>
-    <joint name="link6_to_gripper_ee" type="fixed">
+    <joint name="link6_to_gripper" type="fixed">
         <parent link="link6" />
-        <child link="gripper_ee" />
+        <child link="gripper" />
         <origin xyz="0 0 0.05" rpy="0 0 0" />  <!-- Adjust XYZ to your gripper tip position (e.g., 0.05m forward) -->
     </joint>
-    
+    <xacro:include filename="$(find mark_ii_moveit_new)/config/MarkII_urdf.ros2_control.xacro" />
 
+    <!-- 2. Call the macro to insert the ros2_control tags into the URDF -->
+    <!-- This assumes your package is named 'mark_ii_moveit_new' and the yaml is in 'config' -->
+    <xacro:arm_description_ros2_control
+        name="MarkII"
+        initial_positions_file="$(find mark_ii_moveit_new)/config/initial_positions.yaml"/>
+
+
+    
 </robot>
