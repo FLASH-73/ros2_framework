@@ -2,6 +2,5 @@
 <robot name="MarkII_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:include filename="$(find simple_arm)/description/MarkII_urdf.urdf" />
-    <xacro:include filename="$(find mark_ii_moveit_new)/config/MarkII_urdf.ros2_control.xacro" />
 
 </robot>

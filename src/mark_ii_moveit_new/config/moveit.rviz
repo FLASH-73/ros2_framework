@@ -29,10 +29,6 @@ Visualization Manager:
         Action Topic: /move_group/execute_trajectory
         Value: true
       Value: true
-    - Class: rviz_default_plugins/JointTrajectory  # Added for slider -> real
-      Name: Joint Trajectory Controller
-      Topic: /joint_trajectory_controller/joint_trajectory
-      Value: true
   Global Options:
     Fixed Frame: base_link
   Tools:

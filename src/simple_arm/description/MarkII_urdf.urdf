@@ -253,14 +253,6 @@
         <child link="gripper" />
         <origin xyz="0 0 0.05" rpy="0 0 0" />  <!-- Adjust XYZ to your gripper tip position (e.g., 0.05m forward) -->
     </joint>
-    <xacro:include filename="$(find mark_ii_moveit_new)/config/MarkII_urdf.ros2_control.xacro" />
-
-    <!-- 2. Call the macro to insert the ros2_control tags into the URDF -->
-    <!-- This assumes your package is named 'mark_ii_moveit_new' and the yaml is in 'config' -->
-    <xacro:arm_description_ros2_control
-        name="MarkII"
-        initial_positions_file="$(find mark_ii_moveit_new)/config/initial_positions.yaml"/>
-
-
+ 
     
 </robot>

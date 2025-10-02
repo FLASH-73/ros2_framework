@@ -1,0 +1,32 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    gripper_controller:
+      type: position_controllers/GripperActionController
+
+# Parameters for the individual controllers
+arm_controller:
+  ros__parameters:
+    joints:
+      - base_link_Revolute-1
+      - link1_Revolute-3
+      - link2_Revolute-4
+      - link3_Revolute-5
+      - link4_Revolute-6
+      - link5_Revolute-7
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+   
+
+gripper_controller:
+  ros__parameters:
+    joint: link6_Slider-8

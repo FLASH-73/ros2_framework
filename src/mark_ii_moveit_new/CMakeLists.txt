@@ -3,19 +3,14 @@ project(mark_ii_moveit_new)
 
 find_package(ament_cmake REQUIRED)
 
-ament_package()
-
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/launch")
-  install(
-    DIRECTORY launch
-    DESTINATION share/${PROJECT_NAME}
-    PATTERN "setup_assistant.launch" EXCLUDE)
-endif()
-install(DIRECTORY
-  config
-  launch
+install(
+  DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
-install(FILES .setup_assistant DESTINATION share/${PROJECT_NAME})
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()

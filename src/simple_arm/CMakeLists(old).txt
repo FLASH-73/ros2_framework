@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.8)
+project(simple_arm)
+
+find_package(ament_cmake REQUIRED)
+find_package(ament_python REQUIRED)
+
+# This command handles all Python-related installation via setup.py
+ament_python_install_package()
+
+# Install resource files (the plugin xml, launch files, URDF, and configs)
+install(
+    FILES arm_hardware_plugin.xml
+    DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+    DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}/
+)
+
+install(
+    DIRECTORY urdf
+    DESTINATION share/${PROJECT_NAME}/
+)
+
+install(
+    DIRECTORY config
+    DESTINATION share/${PROJECT_NAME}/
+)
+
+ament_package()

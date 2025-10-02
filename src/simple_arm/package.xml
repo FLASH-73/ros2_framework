@@ -1,34 +1,30 @@
 <?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>simple_arm</name>
-  <version>1.0.0</version>
-  <description>The hardware interface and control launch for the Mark II arm.</description>
-  <maintainer email="user@example.com">user</maintainer>
-  <license>Apache-2.0</license>
+  <version>0.0.0</version>
+  <description>ROS2 control for the Mark II Arm (Python)</description>
+  <maintainer email="user@todo.todo">user</maintainer>
+  <license>TODO: License declaration</license>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
+
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>interactive_markers</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>tf2_geometry_msgs</exec_depend>
-  <buildtool_depend>ament_cmake_python</buildtool_depend>
-  <buildtool_depend>pkgconfig</buildtool_depend>
-  <depend>rclcpp</depend>
-  <depend>hardware_interface</depend>
-  <depend>pluginlib</depend>
-  <depend>controller_manager</depend>
-  <depend>ros2_controllers</depend>
-  <depend>launch_ros</depend>
-  <depend>sts_driver_py</depend>  <!-- If keeping -->
-  <depend>python3-pip</depend>
-  <depend>pyserial</depend>  <!-- If keeping Python parts -->
-  <depend>joy</depend>
-  <depend>sensor_msgs</depend>
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <exec_depend>hardware_interface</exec_depend>
+  <exec_depend>ros2_control_node</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
 
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <depend>moveit_ros_planning_interface</depend>  <!-- For moveit_py -->
+  <depend>control_msgs</depend>  <!-- For FollowJointTrajectory -->
+  <depend>trajectory_msgs</depend>
+  <depend>sensor_msgs</depend>  <!-- For JointState -->
+  <depend>robot_state_publisher</depend>
   <export>
-    <build_type>ament_cmake</build_type>
+    <build_type>ament_python</build_type>
+    <pluginlib plugin="arm_hardware_plugin.xml" />
   </export>
 </package>

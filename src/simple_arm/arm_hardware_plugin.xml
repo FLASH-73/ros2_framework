@@ -1,7 +1,7 @@
-<library path="arm_hardware_plugin">
-  <class
-    name="simple_arm/ArmHardware"
-    type="simple_arm::ArmHardware"
-    base_class_type="hardware_interface::SystemInterface"
-  />
+<library path="simple_arm">
+  <class name="simple_arm/ArmHardware" type="simple_arm.python_hw_inter.ArmHardware" base_class_type="hardware_interface::SystemInterface">
+    <description>
+      ros2_control Python hardware interface for the simple_arm.
+    </description>
+  </class>
 </library>
