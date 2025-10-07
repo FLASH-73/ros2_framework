@@ -14,6 +14,11 @@
         <joint name="link6_Slider-8" />
     </group>
     
+    <group name="arm_with_gripper">
+        <group name="arm"/>
+        <group name="gripper"/>
+    </group>
+
     <group_state name="home" group="arm">
         <joint name="base_link_Revolute-1" value="0"/>
         <joint name="link1_Revolute-3" value="0"/>

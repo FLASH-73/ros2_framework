@@ -15,6 +15,6 @@ moveit_simple_controller_manager:
   gripper_controller:
     action_ns: gripper_cmd  # If separate; adjust if your gripper uses a different action
     type: GripperCommand
-    default: false
+    default: true
     joints:
       - link6_Slider-8
