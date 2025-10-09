@@ -137,8 +137,8 @@ MODEL_BAUDRATE_TABLE = {
 }
 
 # High number of retries is needed for feetech compared to dynamixel motors.
-NUM_READ_RETRY = 20
-NUM_WRITE_RETRY = 20
+NUM_READ_RETRY = 5
+NUM_WRITE_RETRY = 5
 
 
 def convert_degrees_to_steps(degrees: float | np.ndarray, models: str | list[str]) -> np.ndarray:
