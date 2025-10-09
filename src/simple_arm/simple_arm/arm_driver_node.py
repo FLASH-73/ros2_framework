@@ -7,7 +7,7 @@ from rclpy.executors import MultiThreadedExecutor
 from control_msgs.action import FollowJointTrajectory, GripperCommand
 from trajectory_msgs.msg import JointTrajectoryPoint
 from sensor_msgs.msg import JointState
-
+from threading import Lock
 from .sts_driver import FeetechMotorsBus  # Your driver
 import numpy as np
 import math
@@ -51,13 +51,13 @@ class ArmDriverNode(Node):
 
         # Calibration
         self.calibration = {
-            "base_link_Revolute-1": (644.9, 3453),
+            "base_link_Revolute-1": (644.9, -467),
             "link1_Revolute-3": (651, 3072),
             "link2_Revolute-4": (647.2, 985),
             "link3_Revolute-5": (628, 3112),
             "link4_Revolute-6": (640, 702),
-            "link5_Revolute-7": (654, 99),
-            "link6_Slider-8": (14427, 2908),
+            "link5_Revolute-7": (654, 2480),
+            "link6_Slider-8": (14427, 3500),
         }
 
         # Joint names (from URDF)
@@ -68,14 +68,29 @@ class ArmDriverNode(Node):
         self.hw_positions = np.zeros(len(self.joint_names))
         self.revolutions = {name: 0 for name in self.joint_names}
         self.last_wrapped_angles = {name: None for name in self.joint_names}
-
+        self.last_ticks = {name: 0 for name in self.joint_names}  # Initial ticks (update on first read)
+        self.velocity = {name: 0.0 for name in self.joint_names}  # rad/s, starts at rest
+        self.delta_history = {name: [] for name in self.joint_names}  # List of last N deltas (rad), for averaging
+        self.history_size = 5  # Tune: 3-10; smaller = responsive, larger = smooth but laggy
+        self.dt = 0.02  # Timer period (s); matches create_timer
+        self.last_delta_sign = {name: 0 for name in self.joint_names}
+        self.lock = Lock()
         # Initialize driver
         serial_port = self.declare_parameter('serial_port', '/dev/ttyUSB0').value
         self.driver = FeetechMotorsBus(port=serial_port, motors=self.motors_config)
         self.driver.connect()
+        self.driver.write("Lock", [0], ["base"])  # Unlock EEPROM
+        time.sleep(0.05)  # Brief delay for servo
+        self.driver.write("Min_Angle_Limit", [0], ["base"])
+        self.driver.write("Max_Angle_Limit", [0], ["base"])
+        time.sleep(0.05)
+        self.driver.write("Lock", [1], ["base"])  # Lock to save
         self.get_logger().info('Connected to motors.')
         self.driver.write("Mode", [3], ["base"])  # Mode 3 = Step Mode for multi-turn position
-        self.driver.write("Mode", [3], ["link5"])  # Mode 3 = Step Mode for multi-turn position
+        # Reset positions to middle on startup (one-key calibration, per datasheet)
+        self.driver.write("Mode", [0], ["link5"])  # Mode 0 = Position Control Mode
+
+        #self.driver.write_with_motor_ids(self.motor_models, self.motor_ids, 40, [128] * len(self.motor_ids))  # Write 128 to address 40 for all
         # Enable torque
         self.driver.write("Torque_Enable", [0] * len(self.motor_names), self.motor_names) # 1 for enable, 0 for disable
 
@@ -105,6 +120,10 @@ class ArmDriverNode(Node):
         return GoalResponse.ACCEPT
 
     def cancel_callback(self, goal_handle):
+        self.driver.write("Torque_Enable", [0] * len(self.motor_names), self.motor_names)  # Emergency stop
+        self.execute_point(self.hw_positions.tolist(), self.joint_names)  # Try to set current
+        time.sleep(0.1)  # Brief pause
+        self.driver.write("Torque_Enable", [1] * len(self.motor_names), self.motor_names)  # Re-enable if needed
         return CancelResponse.ACCEPT
 
     async def execute_trajectory_callback(self, goal_handle):
@@ -149,29 +168,27 @@ class ArmDriverNode(Node):
         # Get current positions for any missing joints (e.g., if trajectory only specifies subset)
         current_positions = self.hw_positions.copy()
         pos_dict = dict(zip(joint_names, positions_rad)) if joint_names else dict(zip(self.joint_names, positions_rad))
-        
+
         try:
             for name, pos in zip(joint_names, positions_rad):
-                final_rad = pos
+                final_rad = pos 
                 if name == "base_link_Revolute-1":
-                    current_unwrapped = self.hw_positions[self.joint_names.index(name)]  # From latest /joint_states
+                    current_unwrapped = self.hw_positions[self.joint_names.index(name)]
                     delta = pos - current_unwrapped
-                    # Shortest path with direction preference: If near limits, prefer unwinding (negative delta if positive clamped, etc.)
-                    if current_unwrapped > 3 * math.pi:  # Near + limit, prefer negative delta if possible
-                        delta -= 2 * math.pi if delta > 0 else 0
-                    elif current_unwrapped < -3 * math.pi:  # Near - limit
-                        delta += 2 * math.pi if delta < 0 else 0
-                    final_rad = current_unwrapped + ((delta + math.pi) % (2 * math.pi) - math.pi)
-                    # Clamp final for safety
-                    final_rad = max(-4 * math.pi, min(4 * math.pi, final_rad))
-                    self.get_logger().debug(f"Base goal: {pos}, current: {current_unwrapped}, delta: {delta}, final_rad: {final_rad}")
-
+                    
+                    # Avoid large deltas that trigger wraps; prefer incremental
+                    if abs(delta) > math.pi:
+                        delta = math.copysign(math.pi - (abs(delta) % math.pi), delta)  # Shortest, but cap step
+                    
+                    final_rad = current_unwrapped + delta
+                    final_rad = max(-4 * math.pi, min(4 * math.pi, final_rad))  # Safety cap    
+                    
                 # Convert to ticks
                 if name == "link6_Slider-8":
                     position_ticks = self._gripper_dist_to_ticks(final_rad)
                 else:
                     position_ticks = self._rad_to_ticks(final_rad, name)
-
+                print(f"Base final ticks: {position_ticks}")
                 # Map to servos
                 if name in self.single_servo_joints:
                     servo_id = self.single_servo_joints[name]
@@ -185,20 +202,21 @@ class ArmDriverNode(Node):
             if commands_to_sync:
                 ids_to_write = list(commands_to_sync.keys())
                 models_to_write = ["sts3215"] * len(ids_to_write)
+                with self.lock:
+                    # Set speeds first (fixed default for all commanded servos)
+                    speeds_to_sync = [self.default_speed] * len(ids_to_write)
+                    self.driver.write_with_motor_ids(models_to_write, ids_to_write, "Goal_Speed", speeds_to_sync)
 
-                # Set speeds first (fixed default for all commanded servos)
-                speeds_to_sync = [self.default_speed] * len(ids_to_write)
-                self.driver.write_with_motor_ids(models_to_write, ids_to_write, "Goal_Speed", speeds_to_sync)
-
-                # Then set positions
-                values_to_write = list(commands_to_sync.values())
-                self.driver.write_with_motor_ids(models_to_write, ids_to_write, "Goal_Position", values_to_write)
+                    # Then set positions
+                    values_to_write = list(commands_to_sync.values())
+                    self.driver.write_with_motor_ids(models_to_write, ids_to_write, "Goal_Position", values_to_write)
         except Exception as e:
             self.get_logger().error(f"Error in execute_point: {e}")
 
     def publish_joint_states(self):
         try:
-            ticks = self.driver.read("Present_Position", self.motor_names)
+            with self.lock:
+                ticks = self.driver.read("Present_Position", self.motor_names)
             if ticks is None or len(ticks) != len(self.motor_names):
                 self.get_logger().warn("Failed to read all servo positions; skipping publish")
                 return
@@ -206,7 +224,7 @@ class ArmDriverNode(Node):
         except Exception as e:
             self.get_logger().error(f"Read error: {e}")
             return
-        self.get_logger().info(f"Raw servo ticks: {ticks_by_id}") # Debug log
+        #self.get_logger().info(f"Raw servo ticks: {ticks_by_id}") # Debug log
 
         joint_state = JointState()
         joint_state.header.stamp = self.get_clock().now().to_msg()
@@ -228,21 +246,18 @@ class ArmDriverNode(Node):
                 leader_rad = self._ticks_to_rad(leader_ticks, name)
                 follower_rad = self._ticks_to_rad(4095 - follower_ticks, name)
                 position_rad = (leader_rad + follower_rad) / 2.0
-
-            # Unwrap base
+            # special case for base multi-turn unwrapping
             if name == "base_link_Revolute-1":
                 if self.last_wrapped_angles[name] is not None:
                     delta = position_rad - self.last_wrapped_angles[name]
-                    if abs(delta) > math.pi and abs(delta) > 0.1:  # Add hysteresis: ignore small deltas to prevent noise accumulation
+                    if abs(delta) > math.pi and abs(delta) > 0.1:  # Keep basic wrap detect for safety/noise
                         if delta > math.pi:
                             self.revolutions[name] -= 1
                         elif delta < -math.pi:
                             self.revolutions[name] += 1
                 unwrapped_pos = position_rad + self.revolutions[name] * 2 * math.pi
-                # Clamp to ±4π rad (±720°) for cable safety
-                unwrapped_pos = max(-4 * math.pi, min(4 * math.pi, unwrapped_pos))
-                self.get_logger().debug(f"Unwrapped base position: {unwrapped_pos}")
-                self.last_wrapped_angles[name] = position_rad % (2 * math.pi) - math.pi  # Normalize last wrapped for consistency
+                unwrapped_pos = max(-4 * math.pi, min(4 * math.pi, unwrapped_pos))  # Clamp for cable safety
+                self.last_wrapped_angles[name] = position_rad % (2 * math.pi) - math.pi
                 self.hw_positions[i] = unwrapped_pos
             else:
                 self.hw_positions[i] = position_rad

@@ -767,7 +767,9 @@ class FeetechMotorsBus:
             values.append(value)
 
         values = np.array(values)
-
+        if data_name in ["Present_Position", "Goal_Position"]:
+            values = values.astype(np.int32)
+            values[values > 32767] -= 65536  # Two's complement sign
         # Convert to signed int to use range [-2048, 2048] for our motor positions.
         if data_name in CONVERT_UINT32_TO_INT32_REQUIRED:
             values = values.astype(np.int32)

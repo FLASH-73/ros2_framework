@@ -198,53 +198,53 @@
         <origin xyz="0.0325 -0.0001 0.092" rpy="3.1415926535897927 -0.0 0.0" />
         <parent link="base_link" />
         <child link="link1" />
-        <axis xyz="0.0 -5.319298016155975e-16 1.0" />
+        <axis xyz="0.0 0.0 1.0" />
     </joint>
     <joint name="link1_Revolute-3" type="revolute">
         <origin xyz="-0.038 2.1909557501587075e-17 -0.04120000000000001" rpy="-1.5707963267949014 -1.3759121115959062e-48 2.5866422738807517e-33" />
         <parent link="link1" />
         <child link="link2" />
-        <axis xyz="-1 -9.86076131526265e-32 -2.91433543964095e-15" />
+        <axis xyz="-1 0.0 0.0" />
         <limit lower="-3.490659" upper="0.349066" effort="1000000.0" velocity="1000000.0" />
     </joint>
     <joint name="link2_Revolute-4" type="revolute">
         <origin xyz="-4.6074255521944e-16 0.028200000000000856 -0.15829999999999986" rpy="-3.141592653589788 -6.3083005994942144e-30 -3.3964013748145005e-44" />
         <parent link="link2" />
         <child link="link3" />
-        <axis xyz="-0.9999999999999999 -9.860761315262648e-32 -3.1554436208840472e-30" />
+        <axis xyz="-1 0.0 0.0" />
         <limit lower="0.0" upper="3.403392" effort="1000000.0" velocity="1000000.0" />
     </joint>
     <joint name="link3_Revolute-5" type="continuous">
         <origin xyz="0.0376 -0.008000000000000007 -0.18960000000000002" rpy="1.5707963267948966 -6.310887241768096e-30 -3.971572354158615e-60" />
         <parent link="link3" />
         <child link="link4" />
-        <axis xyz="0.0 1.0 -3.6755994903979264e-17" />
+        <axis xyz="0.0 1.0 0.0" />
     </joint>
     <joint name="link4_Revolute-6" type="revolute">
         <origin xyz="0.0171 -0.04360000000000001 0.0" rpy="1.5707963267948966 1.1598146964900797e-46 -3.1554436208840472e-30" />
         <parent link="link4" />
         <child link="link5" />
-        <axis xyz="1.0 0.0 1.6307655579902438e-16" />
+        <axis xyz="1.0 0.0 0.0" />
         <limit lower="-1.658063" upper="1.658063" effort="1000000.0" velocity="1000000.0" />
     </joint>
     <joint name="link5_Revolute-7" type="continuous">
         <origin xyz="-0.021700000000000014 4.521999999994364e-05 0.0706" rpy="-1.570796326794897 3.1554436208840472e-30 4.598010586065825e-46" />
         <parent link="link5" />
         <child link="link6" />
-        <axis xyz="0.0 1.0 -4.3859902218644406e-16" />
+        <axis xyz="0.0 1.0 0.0" />
     </joint>
     <joint name="link6_Slider-8" type="prismatic">
         <origin xyz="-0.012099999999999944 -0.034000140000000005 0.03283129000000003" rpy="-1.5707963267948966 0.5235987755983036 1.5707963267949092" />
         <parent link="link6" />
         <child link="link7" />
-        <axis xyz="1.0040277787914188e-14 1.3663471679475653e-30 0.9999999999999999" />
+        <axis xyz="0.0 0.0 1.0" />
         <limit lower="-0.002" upper="0.045" effort="1000000.0" velocity="1000000.0" />
     </joint>
     <joint name="link7_Slider-9" type="prismatic">
         <origin xyz="0.015700000000000058 -0.034000140000000005 0.03283129000000003" rpy="-1.5707963267948966 1.0471975511965943 -1.5707963267949128" />
         <parent link="link6" />
         <child link="link8" />
-        <axis xyz="0 0 1" />
+        <axis xyz="0.0 0.0 1.0" />
         <limit lower="0.045" upper="-0.002" effort="1000000.0" velocity="1000000.0" />
         <mimic joint="link6_Slider-8" multiplier="1" offset="0" />
     </joint>
