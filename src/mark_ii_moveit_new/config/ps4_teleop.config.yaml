@@ -1,0 +1,18 @@
+# config/ps4_teleop.config.yaml
+teleop_twist_joy:
+  ros__parameters:
+    axis_linear:
+      x: 1  # Left stick up/down -> forward/back
+      y: 0  # Left stick left/right -> left/right
+      z: 4  # Right stick up/down -> up/down
+    scale_linear: 1.0
+    scale_linear_turbo: 2.0  # Hold turbo button for faster
+    axis_angular:
+      yaw: 3  # Right stick left/right -> yaw
+      pitch: 4  # L2/R2 for pitch? Adjust based on PS4 axes (use `ros2 run joy joy_enum` to test)
+      roll: 2
+    scale_angular: 1.0
+    scale_angular_turbo: 2.0
+    enable_button: 9  # L1 to enable teleop
+    enable_turbo_button: 5  # R1 for turbo
+    require_enable_button: true  # Safety: must hold enable to move

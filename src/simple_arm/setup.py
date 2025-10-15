@@ -32,6 +32,7 @@ setup(
     entry_points={
         'console_scripts': [
             'arm_driver = simple_arm.arm_driver_node:main',  # New: For your driver node
+            'trajectory_action_bridge = simple_arm.trajectory_action_bridge:main',  # New: For the action bridge
         ],
     },
 )

@@ -87,6 +87,7 @@ class ArmDriverNode(Node):
         self.last_base_ticks = None  # Previous raw ticks (init None to skip first unwrap)
         # Torque off for manual (essential for test)
         self.driver.write("Torque_Enable", [0] * len(self.motor_names), self.motor_names)
+        torque_values = [1] * len(self.motor_names)  # Off for all
         gripper_idx = self.motor_names.index("gripper")  # Find index
         torque_values[gripper_idx] = 1  # On for gripper
         self.driver.write("Torque_Enable", torque_values, self.motor_names)
@@ -133,7 +134,7 @@ class ArmDriverNode(Node):
             goal_handle.publish_feedback(feedback)
             duration = point.time_from_start.sec + point.time_from_start.nanosec / 1e9
             if duration > 0:
-                await rclpy.sleep(duration)
+                time.sleep(duration)
             else:
                 time.sleep(0.05)
 
@@ -196,7 +197,7 @@ class ArmDriverNode(Node):
             return
 
         ticks_by_id = dict(zip(self.motor_ids, ticks))
-        print(f"Base raw ticks: {ticks_by_id.get(1, 0)}")  # Debug
+        #print(f"Base raw ticks: {ticks_by_id.get(1, 0)}")  # Debug
 
         joint_state = JointState()
         joint_state.header.stamp = self.get_clock().now().to_msg()
@@ -235,7 +236,7 @@ class ArmDriverNode(Node):
                 # Convert unwrapped ticks to rad (gearing inside _ticks_to_rad)
                 position_rad = self._ticks_to_rad(self.cumulative_base_ticks, name)
                 self.hw_positions[i] = position_rad
-                print(f"Base rad: {position_rad:.4f}")  # Keep for debug
+                #print(f"Base rad: {position_rad:.4f}")  # Keep for debug
             else:
                 self.hw_positions[i] = pos
 
