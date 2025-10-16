@@ -49,7 +49,7 @@ class ArmDriverNode(Node):
 
         # Calibration (essential for tick-rad conversion)
         self.calibration = {
-            "base_link_Revolute-1": (644.9, 3637),
+            "base_link_Revolute-1": (644.9, 2593),
             "link1_Revolute-3": (651, 3072),
             "link2_Revolute-4": (647.2, 985),
             "link3_Revolute-5": (628, 3112),
@@ -87,7 +87,7 @@ class ArmDriverNode(Node):
         self.last_base_ticks = None  # Previous raw ticks (init None to skip first unwrap)
         # Torque off for manual (essential for test)
         self.driver.write("Torque_Enable", [0] * len(self.motor_names), self.motor_names)
-        torque_values = [1] * len(self.motor_names)  # Off for all
+        torque_values = [0] * len(self.motor_names)  # Off for all
         gripper_idx = self.motor_names.index("gripper")  # Find index
         torque_values[gripper_idx] = 1  # On for gripper
         self.driver.write("Torque_Enable", torque_values, self.motor_names)
@@ -197,7 +197,7 @@ class ArmDriverNode(Node):
             return
 
         ticks_by_id = dict(zip(self.motor_ids, ticks))
-        #print(f"Base raw ticks: {ticks_by_id.get(1, 0)}")  # Debug
+        print(f"Base raw ticks: {ticks_by_id.get(1, 0)}")  # Debug
 
         joint_state = JointState()
         joint_state.header.stamp = self.get_clock().now().to_msg()
