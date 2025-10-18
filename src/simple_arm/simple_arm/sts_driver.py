@@ -1,6 +1,7 @@
 import enum
 import logging
 import math
+from multiprocessing import Lock
 import time
 import traceback
 from copy import deepcopy
@@ -315,7 +316,7 @@ class FeetechMotorsBus:
         self.group_readers = {}
         self.group_writers = {}
         self.logs = {}
-
+        self.port_lock = Lock()
         self.track_positions = {}
 
     def connect(self):
@@ -675,218 +676,222 @@ class FeetechMotorsBus:
         return values
 
     def read_with_motor_ids(self, motor_models, motor_ids, data_name, num_retry=NUM_READ_RETRY):
-        if self.mock:
-            import tests.mock_scservo_sdk as scs
-        else:
-            import scservo_sdk as scs
+        with self.port_lock:
+            if self.mock:
+                import tests.mock_scservo_sdk as scs
+            else:
+                import scservo_sdk as scs
 
-        return_list = True
-        if not isinstance(motor_ids, list):
-            return_list = False
-            motor_ids = [motor_ids]
+            return_list = True
+            if not isinstance(motor_ids, list):
+                return_list = False
+                motor_ids = [motor_ids]
 
-        assert_same_address(self.model_ctrl_table, self.motor_models, data_name)
-        addr, bytes = self.model_ctrl_table[motor_models[0]][data_name]
-        group = scs.GroupSyncRead(self.port_handler, self.packet_handler, addr, bytes)
-        for idx in motor_ids:
-            group.addParam(idx)
+            assert_same_address(self.model_ctrl_table, self.motor_models, data_name)
+            addr, bytes = self.model_ctrl_table[motor_models[0]][data_name]
+            group = scs.GroupSyncRead(self.port_handler, self.packet_handler, addr, bytes)
+            for idx in motor_ids:
+                group.addParam(idx)
 
-        for _ in range(num_retry):
-            comm = group.txRxPacket()
-            if comm == scs.COMM_SUCCESS:
-                break
+            for _ in range(num_retry):
+                comm = group.txRxPacket()
+                if comm == scs.COMM_SUCCESS:
+                    break
 
-        if comm != scs.COMM_SUCCESS:
-            raise ConnectionError(
-                f"Read failed due to communication error on port {self.port_handler.port_name} for indices {motor_ids}: "
-                f"{self.packet_handler.getTxRxResult(comm)}"
-            )
+            if comm != scs.COMM_SUCCESS:
+                raise ConnectionError(
+                    f"Read failed due to communication error on port {self.port_handler.port_name} for indices {motor_ids}: "
+                    f"{self.packet_handler.getTxRxResult(comm)}"
+                )
 
-        values = []
-        for idx in motor_ids:
-            value = group.getData(idx, addr, bytes)
-            values.append(value)
+            values = []
+            for idx in motor_ids:
+                value = group.getData(idx, addr, bytes)
+                values.append(value)
 
-        if return_list:
-            return values
-        else:
-            return values[0]
+            if return_list:
+                return values
+            else:
+                return values[0]
 
     def read(self, data_name, motor_names: str | list[str] | None = None):
-        if self.mock:
-            import tests.mock_scservo_sdk as scs
-        else:
-            import scservo_sdk as scs
+        with self.port_lock:
+            if self.mock:
+                import tests.mock_scservo_sdk as scs
+            else:
+                import scservo_sdk as scs
 
-        if not self.is_connected:
-            raise RobotDeviceNotConnectedError(
-                f"FeetechMotorsBus({self.port}) is not connected. You need to run `motors_bus.connect()`."
-            )
+            if not self.is_connected:
+                raise RobotDeviceNotConnectedError(
+                    f"FeetechMotorsBus({self.port}) is not connected. You need to run `motors_bus.connect()`."
+                )
 
-        start_time = time.perf_counter()
+            start_time = time.perf_counter()
 
-        if motor_names is None:
-            motor_names = self.motor_names
+            if motor_names is None:
+                motor_names = self.motor_names
 
-        if isinstance(motor_names, str):
-            motor_names = [motor_names]
+            if isinstance(motor_names, str):
+                motor_names = [motor_names]
 
-        motor_ids = []
-        models = []
-        for name in motor_names:
-            motor_idx, model = self.motors[name]
-            motor_ids.append(motor_idx)
-            models.append(model)
+            motor_ids = []
+            models = []
+            for name in motor_names:
+                motor_idx, model = self.motors[name]
+                motor_ids.append(motor_idx)
+                models.append(model)
 
-        assert_same_address(self.model_ctrl_table, models, data_name)
-        addr, bytes = self.model_ctrl_table[model][data_name]
-        group_key = get_group_sync_key(data_name, motor_names)
+            assert_same_address(self.model_ctrl_table, models, data_name)
+            addr, bytes = self.model_ctrl_table[model][data_name]
+            group_key = get_group_sync_key(data_name, motor_names)
 
-        if data_name not in self.group_readers:
-            # create new group reader
-            self.group_readers[group_key] = scs.GroupSyncRead(
-                self.port_handler, self.packet_handler, addr, bytes
-            )
+            if data_name not in self.group_readers:
+                # create new group reader
+                self.group_readers[group_key] = scs.GroupSyncRead(
+                    self.port_handler, self.packet_handler, addr, bytes
+                )
+                for idx in motor_ids:
+                    self.group_readers[group_key].addParam(idx)
+
+            for _ in range(NUM_READ_RETRY):
+                comm = self.group_readers[group_key].txRxPacket()
+                if comm == scs.COMM_SUCCESS:
+                    break
+
+            if comm != scs.COMM_SUCCESS:
+                raise ConnectionError(
+                    f"Read failed due to communication error on port {self.port} for group_key {group_key}: "
+                    f"{self.packet_handler.getTxRxResult(comm)}"
+                )
+
+            values = []
             for idx in motor_ids:
-                self.group_readers[group_key].addParam(idx)
+                value = self.group_readers[group_key].getData(idx, addr, bytes)
+                values.append(value)
 
-        for _ in range(NUM_READ_RETRY):
-            comm = self.group_readers[group_key].txRxPacket()
-            if comm == scs.COMM_SUCCESS:
-                break
+            values = np.array(values)
+            if data_name in ["Present_Position", "Goal_Position"]:
+                values = values.astype(np.int32)
+                values[values > 32767] -= 65536  # Two's complement sign
+            # Convert to signed int to use range [-2048, 2048] for our motor positions.
+            if data_name in CONVERT_UINT32_TO_INT32_REQUIRED:
+                values = values.astype(np.int32)
 
-        if comm != scs.COMM_SUCCESS:
-            raise ConnectionError(
-                f"Read failed due to communication error on port {self.port} for group_key {group_key}: "
-                f"{self.packet_handler.getTxRxResult(comm)}"
-            )
+            if data_name in CALIBRATION_REQUIRED:
+                values = self.avoid_rotation_reset(values, motor_names, data_name)
 
-        values = []
-        for idx in motor_ids:
-            value = self.group_readers[group_key].getData(idx, addr, bytes)
-            values.append(value)
+            if data_name in CALIBRATION_REQUIRED and self.calibration is not None:
+                values = self.apply_calibration_autocorrect(values, motor_names)
 
-        values = np.array(values)
-        if data_name in ["Present_Position", "Goal_Position"]:
-            values = values.astype(np.int32)
-            values[values > 32767] -= 65536  # Two's complement sign
-        # Convert to signed int to use range [-2048, 2048] for our motor positions.
-        if data_name in CONVERT_UINT32_TO_INT32_REQUIRED:
-            values = values.astype(np.int32)
+            # log the number of seconds it took to read the data from the motors
+            delta_ts_name = get_log_name("delta_timestamp_s", "read", data_name, motor_names)
+            self.logs[delta_ts_name] = time.perf_counter() - start_time
 
-        if data_name in CALIBRATION_REQUIRED:
-            values = self.avoid_rotation_reset(values, motor_names, data_name)
+            # log the utc time at which the data was received
+            ts_utc_name = get_log_name("timestamp_utc", "read", data_name, motor_names)
+            self.logs[ts_utc_name] = capture_timestamp_utc()
 
-        if data_name in CALIBRATION_REQUIRED and self.calibration is not None:
-            values = self.apply_calibration_autocorrect(values, motor_names)
-
-        # log the number of seconds it took to read the data from the motors
-        delta_ts_name = get_log_name("delta_timestamp_s", "read", data_name, motor_names)
-        self.logs[delta_ts_name] = time.perf_counter() - start_time
-
-        # log the utc time at which the data was received
-        ts_utc_name = get_log_name("timestamp_utc", "read", data_name, motor_names)
-        self.logs[ts_utc_name] = capture_timestamp_utc()
-
-        return values
+            return values
 
     def write_with_motor_ids(self, motor_models, motor_ids, data_name, values, num_retry=NUM_WRITE_RETRY):
-        if self.mock:
-            import tests.mock_scservo_sdk as scs
-        else:
-            import scservo_sdk as scs
+        with self.port_lock:
+            if self.mock:
+                import tests.mock_scservo_sdk as scs
+            else:
+                import scservo_sdk as scs
 
-        if not isinstance(motor_ids, list):
-            motor_ids = [motor_ids]
-        if not isinstance(values, list):
-            values = [values]
+            if not isinstance(motor_ids, list):
+                motor_ids = [motor_ids]
+            if not isinstance(values, list):
+                values = [values]
 
-        assert_same_address(self.model_ctrl_table, motor_models, data_name)
-        addr, bytes = self.model_ctrl_table[motor_models[0]][data_name]
-        group = scs.GroupSyncWrite(self.port_handler, self.packet_handler, addr, bytes)
-        for idx, value in zip(motor_ids, values, strict=True):
-            data = convert_to_bytes(value, bytes, self.mock)
-            group.addParam(idx, data)
+            assert_same_address(self.model_ctrl_table, motor_models, data_name)
+            addr, bytes = self.model_ctrl_table[motor_models[0]][data_name]
+            group = scs.GroupSyncWrite(self.port_handler, self.packet_handler, addr, bytes)
+            for idx, value in zip(motor_ids, values, strict=True):
+                data = convert_to_bytes(value, bytes, self.mock)
+                group.addParam(idx, data)
 
-        for _ in range(num_retry):
-            comm = group.txPacket()
-            if comm == scs.COMM_SUCCESS:
-                break
+            for _ in range(num_retry):
+                comm = group.txPacket()
+                if comm == scs.COMM_SUCCESS:
+                    break
 
-        if comm != scs.COMM_SUCCESS:
-            raise ConnectionError(
-                f"Write failed due to communication error on port {self.port_handler.port_name} for indices {motor_ids}: "
-                f"{self.packet_handler.getTxRxResult(comm)}"
-            )
+            if comm != scs.COMM_SUCCESS:
+                raise ConnectionError(
+                    f"Write failed due to communication error on port {self.port_handler.port_name} for indices {motor_ids}: "
+                    f"{self.packet_handler.getTxRxResult(comm)}"
+                )
 
     def write(self, data_name, values: int | float | np.ndarray, motor_names: str | list[str] | None = None):
-        if not self.is_connected:
-            raise RobotDeviceNotConnectedError(
-                f"FeetechMotorsBus({self.port}) is not connected. You need to run `motors_bus.connect()`."
-            )
+        with self.port_lock:
+            if not self.is_connected:
+                raise RobotDeviceNotConnectedError(
+                    f"FeetechMotorsBus({self.port}) is not connected. You need to run `motors_bus.connect()`."
+                )
 
-        start_time = time.perf_counter()
+            start_time = time.perf_counter()
 
-        if self.mock:
-            import tests.mock_scservo_sdk as scs
-        else:
-            import scservo_sdk as scs
-
-        if motor_names is None:
-            motor_names = self.motor_names
-
-        if isinstance(motor_names, str):
-            motor_names = [motor_names]
-
-        if isinstance(values, (int, float, np.integer)):
-            values = [int(values)] * len(motor_names)
-
-        values = np.array(values)
-
-        motor_ids = []
-        models = []
-        for name in motor_names:
-            motor_idx, model = self.motors[name]
-            motor_ids.append(motor_idx)
-            models.append(model)
-
-        if data_name in CALIBRATION_REQUIRED and self.calibration is not None:
-            values = self.revert_calibration(values, motor_names)
-
-        values = values.tolist()
-
-        assert_same_address(self.model_ctrl_table, models, data_name)
-        addr, bytes = self.model_ctrl_table[model][data_name]
-        group_key = get_group_sync_key(data_name, motor_names)
-
-        init_group = data_name not in self.group_readers
-        if init_group:
-            self.group_writers[group_key] = scs.GroupSyncWrite(
-                self.port_handler, self.packet_handler, addr, bytes
-            )
-
-        for idx, value in zip(motor_ids, values, strict=True):
-            data = convert_to_bytes(value, bytes, self.mock)
-            if init_group:
-                self.group_writers[group_key].addParam(idx, data)
+            if self.mock:
+                import tests.mock_scservo_sdk as scs
             else:
-                self.group_writers[group_key].changeParam(idx, data)
+                import scservo_sdk as scs
 
-        comm = self.group_writers[group_key].txPacket()
-        if comm != scs.COMM_SUCCESS:
-            raise ConnectionError(
-                f"Write failed due to communication error on port {self.port} for group_key {group_key}: "
-                f"{self.packet_handler.getTxRxResult(comm)}"
-            )
+            if motor_names is None:
+                motor_names = self.motor_names
 
-        # log the number of seconds it took to write the data to the motors
-        delta_ts_name = get_log_name("delta_timestamp_s", "write", data_name, motor_names)
-        self.logs[delta_ts_name] = time.perf_counter() - start_time
+            if isinstance(motor_names, str):
+                motor_names = [motor_names]
 
-        # TODO(rcadene): should we log the time before sending the write command?
-        # log the utc time when the write has been completed
-        ts_utc_name = get_log_name("timestamp_utc", "write", data_name, motor_names)
-        self.logs[ts_utc_name] = capture_timestamp_utc()
+            if isinstance(values, (int, float, np.integer)):
+                values = [int(values)] * len(motor_names)
+
+            values = np.array(values)
+
+            motor_ids = []
+            models = []
+            for name in motor_names:
+                motor_idx, model = self.motors[name]
+                motor_ids.append(motor_idx)
+                models.append(model)
+
+            if data_name in CALIBRATION_REQUIRED and self.calibration is not None:
+                values = self.revert_calibration(values, motor_names)
+
+            values = values.tolist()
+
+            assert_same_address(self.model_ctrl_table, models, data_name)
+            addr, bytes = self.model_ctrl_table[model][data_name]
+            group_key = get_group_sync_key(data_name, motor_names)
+
+            init_group = data_name not in self.group_readers
+            if init_group:
+                self.group_writers[group_key] = scs.GroupSyncWrite(
+                    self.port_handler, self.packet_handler, addr, bytes
+                )
+
+            for idx, value in zip(motor_ids, values, strict=True):
+                data = convert_to_bytes(value, bytes, self.mock)
+                if init_group:
+                    self.group_writers[group_key].addParam(idx, data)
+                else:
+                    self.group_writers[group_key].changeParam(idx, data)
+
+            comm = self.group_writers[group_key].txPacket()
+            if comm != scs.COMM_SUCCESS:
+                raise ConnectionError(
+                    f"Write failed due to communication error on port {self.port} for group_key {group_key}: "
+                    f"{self.packet_handler.getTxRxResult(comm)}"
+                )
+
+            # log the number of seconds it took to write the data to the motors
+            delta_ts_name = get_log_name("delta_timestamp_s", "write", data_name, motor_names)
+            self.logs[delta_ts_name] = time.perf_counter() - start_time
+
+            # TODO(rcadene): should we log the time before sending the write command?
+            # log the utc time when the write has been completed
+            ts_utc_name = get_log_name("timestamp_utc", "write", data_name, motor_names)
+            self.logs[ts_utc_name] = capture_timestamp_utc()
 
     def disconnect(self):
         if not self.is_connected:
