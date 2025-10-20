@@ -793,6 +793,16 @@ class FeetechMotorsBus:
 
             return values
 
+    def reboot(self, motor_names):
+        if isinstance(motor_names, str):
+            motor_names = [motor_names]
+        for name in motor_names:
+            idx = self.motors[name][0]
+            comm = self.packet_handler.reboot(self.port_handler, idx)
+            if comm != scs.COMM_SUCCESS:
+                raise ConnectionError(f"Reboot failed for {name}: {self.packet_handler.getTxRxResult(comm)}")
+
+
     def write_with_motor_ids(self, motor_models, motor_ids, data_name, values, num_retry=NUM_WRITE_RETRY):
         with self.port_lock:
             if self.mock:
